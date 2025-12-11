@@ -22,7 +22,7 @@
 
 
   <style>
-   /* Modal Điểm Danh */
+
 .attendance-modal {
   display: flex;
   position: fixed;
@@ -42,6 +42,7 @@
   border-radius: 24px;
   text-align: center;
   max-width: 450px;
+  width: 90%;
   box-shadow: 0 15px 50px rgba(0,0,0,0.3);
   border: 3px solid var(--noel-gold);
 }
@@ -81,7 +82,7 @@
   font-size: 14px;
   color: #666;
 }
-
+ 
     /* --- ADMIN CONTAINER --- */
 #adminPanel {
   display: none;
@@ -343,48 +344,37 @@
     .social-fixed a:hover { transform:scale(1.2); }
 
     footer { text-align:center; padding:20px; color:var(--gold); font-size:14px; margin-top:30px; }
-  </style>
+ 
+.header-top {
+  position: relative; /* Quan trọng để streak bám theo */
+}
+
+.streak-box {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 8px 18px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 12px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+}
+
+
+ 
+ </style>
+
+
+
+
 </head>
 <body>
 
-    
-    <!-- ========== MODAL ĐIỂM DANH ========== -->
-<div id="attendanceModal" class="attendance-modal">
-  <div class="attendance-content">
-    <h2>🎄 ĐIỂM DANH HÀNG NGÀY 🎁</h2>
 
-    <div class="streak-display" id="streakDisplay">0 🔥</div>
-
-    <p id="attendanceMessage">Điểm danh mỗi ngày để nhận 10 streak!</p>
-
-    <div class="streak-info">
-      <p>✨ Điểm danh liên tục: <strong id="consecutiveDays">0</strong> ngày</p>
-      <p>📅 Lần điểm danh cuối: <span id="lastCheckIn">Chưa có</span></p>
-    </div>
-
-    <button id="checkInBtn" class="attendance-btn" onclick="checkIn()">
-      Điểm Danh Ngay
-    </button>
-
-    <button class="attendance-btn" style="background:#6b7280; margin-left:10px;" onclick="closeAttendance()">
-      Đóng
-    </button>
-
-    <!-- ⭐ HƯỚNG DẪN ĐIỂM DANH (đã thêm vào dưới nút) -->
-    <div class="guide-box">
-      <h3>📘 Hướng dẫn điểm danh</h3><br>
-      <ul>
-        <P>Mỗi thành viên sẽ nhận được 70 streak 🎁.</P>
-        <P>Nhấn nút <b>“Điểm Danh Ngay”</b> mỗi ngày.</P>
-        <P>Mỗi lần điểm danh nhận <b>10 điểm streak</b>.</P>
-        <p>Đăng nhập hàng ngày sẽ nhận được 10 streak </p>
-        <P>Không điểm danh 1 ngày sẽ mất 10 streak</P><br><br>
-        <p><b style="color: red;">Lưu Ý:</b>Mọi người đăng nhập liên tục để giữ streak luôn ở mức 70, nếu streak dưới 50 thì mọi người sẽ không xem tài liệu được</p>
-        <P style="color: #556d00;">Nếu đã điểm danh hôm nay, nút sẽ chuyển sang màu xám.</P>
-      </ul>
-    </div>
-  </div>
-</div>
 
   <!-- Tuyết rơi -->
   <div class="snow" id="snow"></div>
@@ -455,18 +445,44 @@
 </div>
 
 
+<!-- POPUP ĐIỂM DANH -->
+<div id="attendanceModal" class="attendance-modal" style="display:none;">
+  <div class="attendance-content">
+    
+    <h2>🔥 Điểm Danh Hôm Nay</h2>
+
+    <div class="streak-display" id="streakDisplay">0</div>
+
+    <p class="streak-info">
+      Bạn sẽ nhận +10 streak cho mỗi lần điểm danh.  
+      Duy trì streak để mở khóa học!
+    </p>
+
+    <button id="attendanceButton" class="attendance-btn" onclick="diemDanh()">Điểm Danh Ngay</button>
+    <br><br>
+
+    <button class="attendance-btn" style="background:#999;" onclick="closeAttendance()">Đóng</button>
+     <p><b style="color: red;">Lưu Ý:</b><i>Mọi người đăng nhập liên tục để giữ streak luôn ở mức 70, nếu streak dưới 50 thì mọi người sẽ không xem tài liệu được</i></p> 
+  </div>
+</div>
+
+
 
   <div class="wrap">
     <header>
+      <div class="streak-box">
+  Streak: <span id="streakValue">0</span> 🔥
+</div>
       <img src="image/logo.png" alt="Logo" class="logo">
       <h1 style="color:#ffffff;">HÀNH TRÌNH CHIA SẺ KHÓA HỌC MIỄN PHÍ</h1>
       <p style="color:#ffd700; font-size:1.2em;">Full Khóa Học 2K8 Free – Merry Christmas 2025!</p>
       <nav>
-        <a href="#khoahoc"  target="_blank" >Khoá Học</a>
+        <a href="#khoahoc" onclick="return checkStreakBeforeAccess()" target="_blank"  >Khoá Học</a>
         <a href="#" class="go" data-real="https://docs.google.com/spreadsheets/d/143R5_zIbigTW7AjlJSN-u_HEy2GMuaLXMDH4ZveFEjg/edit?gid=0#gid=0" target="_blank">Tài Liệu</a>
         <a href="https://facebook.com/groups/686372527299508/" target="_blank">Nhóm FB</a>
         <a href="https://zalo.me/g/rougor465" target="_blank">Nhóm Zalo</a>
-        <a href="#" onclick="openAdmin()">Admin</a>
+<a href="#" onclick="openAttendance()">Điểm Danh</a>
+      <a href="#" onclick="openAdmin()">Admin</a>
 
       </nav>
     </header>
@@ -531,7 +547,7 @@
 
               <tr class="teacher-row"><td colspan="4">TOÁN – THẦY NGUYỄN ĐĂNG ÁI</td></tr>
               <tr><td>Toán</td><td>Thầy Nguyễn Đăng Ái</td><td>TDMX 2026 - Chinh phục nền tảng vận dụng Toán THPT 2026</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/tdmx2026-chinh-phuc-nen-tang-van-dung.html">Vào học</a></td></tr>
-              <tr><td>Toán</td><td>Thầy Nguyễn Đăng Ái</td><td>Khóa 2: Bứt phá VDC 9.5</td><td><a href="#" class="go" data-real="">Vào học</a></td></tr>
+              <tr><td>Toán</td><td>Thầy Nguyễn Đăng Ái</td><td>Khóa 2: Bứt phá VDC 9.5</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/tdmx2026-chinh-phuc-nen-tang-van-dung.html">Vào học</a></td></tr>
 
               <tr class="teacher-row"><td colspan="4">TOÁN – THẦY NGUYỄN PHAN TIẾN</td></tr>
               <tr><td>Toán</td><td>Thầy Nguyễn Phan Tiến</td><td>Khóa S - Chuyên đề Nền tảng SGK mới</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/thay-nguyen-phan-tien-khoa-s-chuyen-e.html">Vào học</a></td></tr>
@@ -565,9 +581,9 @@
               <tr><td>Toán</td><td>Anh Giáo Kid</td><td>Khóa Toán thực tế VDC</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/11/anh-giao-kid.html">Vào học</a></td></tr>
 
                 <tr class="teacher-row"><td colspan="4">TỔ TOÁN MAPSTUDY 2K8</td></tr>
-              <tr><td>Toán</td><td>MapStudy</td><td>Sách Khóa Học</td><td><a href="#" class="go" data-real="">Link Sách</a></td></tr>
-             <tr><td>Toán</td><td>MapStudy</td><td>Khóa I: Chuyên Đề Cơ Bản Môn Toán 2006</td><td><a href="#" class="go" data-real="">Vào Học</a></td></tr>
-              <tr><td>Toán</td><td>MapStudy</td><td>Khóa M: Vận Dụng Và Vận Dụng Cao Môn Toán 2006</td><td><a href="#" class="go" data-real="">Vào Học</a></td></tr>
+              <tr><td>Toán</td><td>MapStudy</td><td>Sách Khóa Học</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/12/to-toan-mapstudy.html">Link Sách</a></td></tr>
+             <tr><td>Toán</td><td>MapStudy</td><td>Khóa I: Chuyên Đề Cơ Bản Môn Toán 2006</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/12/to-toan-mapstudy.html">Vào Học</a></td></tr>
+              <tr><td>Toán</td><td>MapStudy</td><td>Khóa M: Vận Dụng Và Vận Dụng Cao Môn Toán 2006</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/12/to-toan-mapstudy.html">Vào Học</a></td></tr>
              <tr><td>Toán</td><td>MapStudy</td><td>Khóa O: Thực Chiến Luyện Đề Môn Toán 2006</td><td><a href="#" class="go" data-real="">Đợi Khai Giảng</a></td></tr>
              <tr><td>Toán</td><td>MapStudy</td><td>Khóa E: Tổng Ôn Trọng Điểm Môn Toán 2006</td><td><a href="#" class="go" data-real="">Đợi Khai Giảng</a></td></tr>
              
@@ -753,8 +769,21 @@
 
 
 <script>
+//kt streak khi vào 
+document.addEventListener("DOMContentLoaded", () => {
+  dailyPenalty();
+  checkAccess();   // <- khóa nút ngay lập tức
+  document.getElementById("streakValue").textContent = getStreak();
+});
 
 
+// nút hiện streak
+  function updateStreakDisplay() {
+    document.getElementById("streakValue").textContent = getStreak();
+  }
+
+  // Cập nhật khi load trang
+  document.addEventListener("DOMContentLoaded", updateStreakDisplay);
 
 const SHOPEE_LINK = "https://s.shopee.vn/6AdemaGKEQ";
 
@@ -886,219 +915,99 @@ window.onclick = function (e) {
   const modal = document.getElementById("adminModal");
   if (e.target === modal) modal.style.display = "none";
 };
-
-/* ===================== HỆ THỐNG ĐIỂM DANH ===================== */
-
-// Khởi tạo streak cho người dùng mới
-function initStreak() {
-  if (!localStorage.getItem("streak")) {
-    localStorage.setItem("streak", "70");
-    localStorage.setItem("consecutiveDays", "0");
-    localStorage.setItem("lastCheckIn", "");
+// Lấy streak
+  function getStreak() {
+    let streak = localStorage.getItem("streak");
+    if (!streak) {
+      localStorage.setItem("streak", 70);
+      return 70;
+    }
+    return parseInt(streak);
   }
-}
 
-// Hiển thị modal điểm danh khi vào trang
-window.addEventListener("load", function() {
-  initStreak();
-  updateAttendanceDisplay();
-  
-  // Kiểm tra nếu chưa điểm danh hôm nay
-  const lastCheckIn = localStorage.getItem("lastCheckIn");
-  const today = new Date().toDateString();
-  
-  if (lastCheckIn !== today) {
+  // 🟢 Lấy streak từ localStorage
+  function getStreak() {
+    return parseInt(localStorage.getItem("streak") || "70");
+  }
+
+  // 🟢 Lưu streak
+  function setStreak(value) {
+    localStorage.setItem("streak", value);
+    document.getElementById("streakDisplay").textContent = value;
+    document.getElementById("streakValue").textContent = value;
+  }
+
+  // 🟢 Kiểm tra ngày để reset 11:59 PM
+  function shouldReset() {
+    const lastDay = localStorage.getItem("lastCheckDay");
+    const today = new Date().toLocaleDateString("vi-VN");
+
+    if (lastDay !== today) {
+      localStorage.setItem("lastCheckDay", today);
+      return true;
+    }
+    return false;
+  }
+
+  // 🟢 Mở popup điểm danh
+  function openAttendance() {
     document.getElementById("attendanceModal").style.display = "flex";
+    document.getElementById("streakDisplay").textContent = getStreak();
   }
-  
-  // Kiểm tra và trừ streak nếu bỏ lỡ ngày
-  checkMissedDays();
-});
 
-// Cập nhật hiển thị
-function updateAttendanceDisplay() {
-  const streak = localStorage.getItem("streak") || 70;
-  const consecutiveDays = localStorage.getItem("consecutiveDays") || 0;
-  const lastCheckIn = localStorage.getItem("lastCheckIn") || "Chưa có";
-  
-  document.getElementById("streakDisplay").innerText = streak + " 🔥";
-  document.getElementById("consecutiveDays").innerText = consecutiveDays;
-  document.getElementById("lastCheckIn").innerText = 
-    lastCheckIn === "Chưa có" ? "Chưa có" : new Date(lastCheckIn).toLocaleDateString("vi-VN");
-  
-  // Kiểm tra xem đã điểm danh hôm nay chưa
-  const today = new Date().toDateString();
-  const btn = document.getElementById("checkInBtn");
-  
-  if (lastCheckIn === today) {
-    btn.disabled = true;
-    btn.innerText = "Đã điểm danh hôm nay ✓";
-    document.getElementById("attendanceMessage").innerText = 
-      "Bạn đã điểm danh hôm nay rồi! Hẹn gặp lại vào ngày mai 🎉";
+  // 🟢 Đóng popup
+  function closeAttendance() {
+    document.getElementById("attendanceModal").style.display = "none";
   }
-}
 
-// Kiểm tra bỏ lỡ ngày
-function checkMissedDays() {
-  const lastCheckIn = localStorage.getItem("lastCheckIn");
-  if (!lastCheckIn) return;
-  
-  const lastDate = new Date(lastCheckIn);
-  const today = new Date();
-  const diffTime = today - lastDate;
-  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-  
-  // Nếu bỏ lỡ quá 1 ngày
-  if (diffDays > 1) {
-    const missedDays = diffDays - 1;
-    let streak = Number(localStorage.getItem("streak"));
-    streak = Math.max(0, streak - (missedDays * 10));
-    localStorage.setItem("streak", streak);
-    localStorage.setItem("consecutiveDays", "0");
-    
-    alert(`⚠️ Bạn đã bỏ lỡ ${missedDays} ngày điểm danh!\nStreak bị trừ ${missedDays * 10} điểm.`);
+  // 🟢 Hàm điểm danh
+  function diemDanh() {
+    let streak = getStreak();
+
+    if (streak < 70) streak += 10;
+    if (streak > 70) streak = 70;
+
+    setStreak(streak);
+
+    document.getElementById("attendanceButton").disabled = true;
+
+    closeAttendance();
+
+    checkAccess();
   }
-}
 
-// Điểm danh
-function checkIn() {
-  const today = new Date().toDateString();
-  const lastCheckIn = localStorage.getItem("lastCheckIn");
-  
-  if (lastCheckIn === today) {
-    alert("Bạn đã điểm danh hôm nay rồi!");
-    return;
-  }
-  
-  // Cộng streak
-  let streak = Number(localStorage.getItem("streak"));
-  streak += 10;
-  localStorage.setItem("streak", streak);
-
-  
-  
-  // Cập nhật consecutive days
-  const lastDate = lastCheckIn ? new Date(lastCheckIn) : null;
-  const todayDate = new Date();
-  let consecutiveDays = Number(localStorage.getItem("consecutiveDays") || 0);
-  
-  if (lastDate) {
-    const diffTime = todayDate - lastDate;
-    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-    
-    if (diffDays === 1) {
-      consecutiveDays += 1;
-    } else if (diffDays > 1) {
-      consecutiveDays = 1;
+  // 🟢 Không điểm danh mất 10 streak
+  function dailyPenalty() {
+    if (shouldReset()) {
+      let streak = getStreak() - 10;
+      if (streak < 0) streak = 0;
+      setStreak(streak);
     }
-  } else {
-    consecutiveDays = 1;
   }
-  
-  localStorage.setItem("consecutiveDays", consecutiveDays);
-  localStorage.setItem("lastCheckIn", today);
-  
-  // Hiệu ứng
-  confetti();
-  updateAttendanceDisplay();
-  
-  alert(`🎉 Điểm danh thành công!\n+10 Streak\nTổng streak: ${streak} 🔥`);
-}
 
-// Đóng modal
-function closeAttendance() {
-  const streak = Number(localStorage.getItem("streak"));
-  
-  if (streak < 50) {
-    alert(`⚠️ Bạn cần tối thiểu 50 streak để xem tài liệu!\nHiện tại: ${streak} streak`);
-    return;
-  }
-  
-  document.getElementById("attendanceModal").style.display = "none";
-}
+  // 🟢 Khóa nút VÀO HỌC nếu streak < 50
+  function checkAccess() {
+    const streak = getStreak();
+    const button = document.querySelector(".go");
 
-// Hiệu ứng pháo hoa đơn giản
-function confetti() {
-  for (let i = 0; i < 30; i++) {
-    const particle = document.createElement("div");
-    particle.style.position = "fixed";
-    particle.style.left = Math.random() * 100 + "%";
-    particle.style.top = "50%";
-    particle.style.width = "10px";
-    particle.style.height = "10px";
-    particle.style.background = ["#e63946", "#2a9d8f", "#f4d35e"][Math.floor(Math.random() * 3)];
-    particle.style.borderRadius = "50%";
-    particle.style.pointerEvents = "none";
-    particle.style.zIndex = "999999";
-    particle.style.animation = `confettiFall ${Math.random() * 2 + 1}s ease-out forwards`;
-    document.body.appendChild(particle);
-    
-    setTimeout(() => particle.remove(), 3000);
-  }
-}
-
-// Thêm keyframes cho confetti vào CSS (chèn vào cuối thẻ style)
-const style = document.createElement("style");
-style.innerHTML = `
-@keyframes confettiFall {
-  to {
-    transform: translateY(100vh) rotate(720deg);
-    opacity: 0;
-  }
-}
-`;
-document.head.appendChild(style);
-
-
-
-document.querySelectorAll('a.go').forEach(link => {
-  const realLink = link.getAttribute('data-real') || '';
-
-  link.addEventListener('click', function(e) {
-    e.preventDefault();
-    
-    // KIỂM TRA STREAK
-    const streak = Number(localStorage.getItem("streak") || 0);
     if (streak < 50) {
-      alert(`⚠️ Bạn cần tối thiểu 50 streak để xem tài liệu!\nHiện tại: ${streak} streak\nĐiểm danh mỗi ngày để nhận thêm streak!`);
-      document.getElementById("attendanceModal").style.display = "flex";
-      return;
+      button.style.pointerEvents = "none";
+      button.style.opacity = "0.4";
+      button.style.cursor = "not-allowed";
+    } else {
+      button.style.pointerEvents = "auto";
+      button.style.opacity = "1";
     }
-
-    // Code cũ của bạn
-    if (!this.dataset.clicked) {
-      window.open(SHOPEE_LINK, '_blank');
-      this.dataset.clicked = 'true';
-      this.innerHTML = 'Đang mở Shopee...';
-      this.style.color = '#999';
-      setTimeout(() => {
-        this.innerHTML = 'Bấm lại để vào khóa học';
-        this.style.color = '#e74c3c';
-      }, 2000);
-    }
-    else if (realLink && realLink.trim() !== '' && realLink !== '#') {
-      window.open(realLink, '_blank');
-    }
-  });
-});
-
-function loadAdminData() {
-  document.getElementById("showVisits").innerText = 
-    localStorage.getItem("visits") || 0;
-
-  document.getElementById("showShopee").innerText =
-    localStorage.getItem("shopee_click") || 0;
-  
-  // THÊM HIỂN THỊ STREAK TRONG ADMIN
-  const adminContent = document.querySelector("#adminPanel > div");
-  if (!document.getElementById("adminStreak")) {
-    const streakInfo = document.createElement("p");
-    streakInfo.id = "adminStreak";
-    streakInfo.style.fontSize = "18px";
-    streakInfo.innerHTML = `🔥 Streak hiện tại: <b style="color:#f39c12;">${localStorage.getItem("streak") || 70}</b>`;
-    adminContent.insertBefore(streakInfo, adminContent.querySelector("hr").nextSibling);
   }
-}
+
+  document.addEventListener("DOMContentLoaded", () => {
+    dailyPenalty();
+    checkAccess();
+    document.getElementById("streakValue").textContent = getStreak();
+  });
+
+  updateStreakDisplay();
+
 </script>
 
 
