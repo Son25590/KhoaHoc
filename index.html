@@ -872,7 +872,7 @@ window.onclick = function (e) {
 // Khởi tạo streak cho người dùng mới
 function initStreak() {
   if (!localStorage.getItem("streak")) {
-    localStorage.setItem("streak", "40");
+    localStorage.setItem("streak", "30");
     localStorage.setItem("consecutiveDays", "0");
     localStorage.setItem("lastCheckIn", "");
   }
@@ -897,7 +897,7 @@ window.addEventListener("load", function() {
 
 // Cập nhật hiển thị
 function updateAttendanceDisplay() {
-  const streak = localStorage.getItem("streak") || 40;
+  const streak = localStorage.getItem("streak") || 30;
   const consecutiveDays = localStorage.getItem("consecutiveDays") || 0;
   const lastCheckIn = localStorage.getItem("lastCheckIn") || "Chưa có";
   
@@ -1073,7 +1073,7 @@ function loadAdminData() {
     const streakInfo = document.createElement("p");
     streakInfo.id = "adminStreak";
     streakInfo.style.fontSize = "18px";
-    streakInfo.innerHTML = `🔥 Streak hiện tại: <b style="color:#f39c12;">${localStorage.getItem("streak") || 40}</b>`;
+    streakInfo.innerHTML = `🔥 Streak hiện tại: <b style="color:#f39c12;">${localStorage.getItem("streak") || 30}</b>`;
     adminContent.insertBefore(streakInfo, adminContent.querySelector("hr").nextSibling);
   }
 }
@@ -1082,3 +1082,4 @@ function loadAdminData() {
 
 </body>
 </html>
+
