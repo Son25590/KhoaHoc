@@ -347,22 +347,42 @@
 </head>
 <body>
 
+    
     <!-- ========== MODAL ĐIỂM DANH ========== -->
 <div id="attendanceModal" class="attendance-modal">
   <div class="attendance-content">
     <h2>🎄 ĐIỂM DANH HÀNG NGÀY 🎁</h2>
+
     <div class="streak-display" id="streakDisplay">0 🔥</div>
+
     <p id="attendanceMessage">Điểm danh mỗi ngày để nhận 10 streak!</p>
+
     <div class="streak-info">
       <p>✨ Điểm danh liên tục: <strong id="consecutiveDays">0</strong> ngày</p>
       <p>📅 Lần điểm danh cuối: <span id="lastCheckIn">Chưa có</span></p>
     </div>
+
     <button id="checkInBtn" class="attendance-btn" onclick="checkIn()">
       Điểm Danh Ngay
     </button>
+
     <button class="attendance-btn" style="background:#6b7280; margin-left:10px;" onclick="closeAttendance()">
       Đóng
     </button>
+
+    <!-- ⭐ HƯỚNG DẪN ĐIỂM DANH (đã thêm vào dưới nút) -->
+    <div class="guide-box">
+      <h3>📘 Hướng dẫn điểm danh</h3><br>
+      <ul>
+        <P>Mỗi thành viên sẽ nhận được 70 streak 🎁.</P>
+        <P>Nhấn nút <b>“Điểm Danh Ngay”</b> mỗi ngày.</P>
+        <P>Mỗi lần điểm danh nhận <b>10 điểm streak</b>.</P>
+        <p>Đăng nhập hàng ngày sẽ nhận được 10 streak </p>
+        <P>Không điểm danh 1 ngày sẽ mất 10 streak</P><br><br>
+        <p><b style="color: red;">Lưu Ý:</b>Mọi người đăng nhập liên tục để giữ streak luôn ở mức 70, nếu streak dưới 50 thì mọi người sẽ không xem tài liệu được</p>
+        <P style="color: #556d00;">Nếu đã điểm danh hôm nay, nút sẽ chuyển sang màu xám.</P>
+      </ul>
+    </div>
   </div>
 </div>
 
@@ -872,7 +892,7 @@ window.onclick = function (e) {
 // Khởi tạo streak cho người dùng mới
 function initStreak() {
   if (!localStorage.getItem("streak")) {
-    localStorage.setItem("streak", "30");
+    localStorage.setItem("streak", "70");
     localStorage.setItem("consecutiveDays", "0");
     localStorage.setItem("lastCheckIn", "");
   }
@@ -897,7 +917,7 @@ window.addEventListener("load", function() {
 
 // Cập nhật hiển thị
 function updateAttendanceDisplay() {
-  const streak = localStorage.getItem("streak") || 30;
+  const streak = localStorage.getItem("streak") || 70;
   const consecutiveDays = localStorage.getItem("consecutiveDays") || 0;
   const lastCheckIn = localStorage.getItem("lastCheckIn") || "Chưa có";
   
@@ -954,6 +974,9 @@ function checkIn() {
   let streak = Number(localStorage.getItem("streak"));
   streak += 10;
   localStorage.setItem("streak", streak);
+
+   // ⭐ Giới hạn streak tối đa 70
+    if (streak > 70) streak = 70;
   
   // Cập nhật consecutive days
   const lastDate = lastCheckIn ? new Date(lastCheckIn) : null;
@@ -1073,7 +1096,7 @@ function loadAdminData() {
     const streakInfo = document.createElement("p");
     streakInfo.id = "adminStreak";
     streakInfo.style.fontSize = "18px";
-    streakInfo.innerHTML = `🔥 Streak hiện tại: <b style="color:#f39c12;">${localStorage.getItem("streak") || 30}</b>`;
+    streakInfo.innerHTML = `🔥 Streak hiện tại: <b style="color:#f39c12;">${localStorage.getItem("streak") || 70}</b>`;
     adminContent.insertBefore(streakInfo, adminContent.querySelector("hr").nextSibling);
   }
 }
@@ -1082,4 +1105,3 @@ function loadAdminData() {
 
 </body>
 </html>
-
