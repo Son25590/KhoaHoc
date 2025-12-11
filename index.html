@@ -22,17 +22,7 @@
 
 
   <style>
-
-    @media (max-width: 600px) {
-  .attendance-content {
-    width: 100% !important;
-    height: 100% !important;
-    border-radius: 0 !important;
-    max-width: 100% !important;
-    padding: 20px !important;
-  }
-}
-    /* Modal Điểm Danh */
+   /* Modal Điểm Danh */
 .attendance-modal {
   display: flex;
   position: fixed;
@@ -985,8 +975,7 @@ function checkIn() {
   streak += 10;
   localStorage.setItem("streak", streak);
 
-   // ⭐ Giới hạn streak tối đa 70
-    if (streak > 70) streak = 70;
+  
   
   // Cập nhật consecutive days
   const lastDate = lastCheckIn ? new Date(lastCheckIn) : null;
