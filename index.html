@@ -184,7 +184,6 @@
 
 
 
-
  :root {
     --noel-red: #e63946;
     --noel-green: #2a9d8f;
@@ -366,7 +365,9 @@
 
 
  
- </style>
+</style>
+
+
 
 
 
@@ -723,7 +724,6 @@
               <tr><td>ĐGNL</td><td>PHẦN II</td><td>TƯ DUY ĐỌC HIỂU</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/12/tsa-ilp-2k8-luyen-thi-anh-gia-tu-duy.html">Vào học</a></td></tr>
               <tr><td>ĐGNL</td><td>PHẦN III</td><td>KHOA HỌC VÀ GIẢI QUYẾT VẤN ĐỀ (LÝ - HÓA - SINH)</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/12/tsa-ilp-2k8-luyen-thi-anh-gia-tu-duy.html">Vào học</a></td></tr>
               <tr><td>ĐGNL</td><td>PHẦN IV</td><td>PHÒNG LUYỆN ĐỀ THỰC CHIẾN - GOD OF WAR 80+ 90+</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/12/tsa-ilp-2k8-luyen-thi-anh-gia-tu-duy.html">Vào học</a></td></tr>
-
               
               <tr class="teacher-row"><td colspan="4">ĐGNL HCM – Thầy Bùi Văn Công</td></tr>
               <tr><td>ĐGNL</td><td>Thầy Bùi Văn Công</td><td>Khóa Max G - Tổng ôn toàn diện</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/khoa-max-g-tong-on-toan-dien.html">Vào học</a></td></tr>
@@ -769,50 +769,104 @@
 
 
 <script>
-//kt streak khi vào 
-document.addEventListener("DOMContentLoaded", () => {
-  dailyPenalty();
-  checkAccess();   // <- khóa nút ngay lập tức
-  document.getElementById("streakValue").textContent = getStreak();
-});
-
-
-// nút hiện streak
-  function updateStreakDisplay() {
-    document.getElementById("streakValue").textContent = getStreak();
-  }
-
-  // Cập nhật khi load trang
-  document.addEventListener("DOMContentLoaded", updateStreakDisplay);
-
 const SHOPEE_LINK = "https://s.shopee.vn/6AdemaGKEQ";
 
-    document.querySelectorAll('a.go').forEach(link => {
-      const realLink = link.getAttribute('data-real') || '';
+/* ===================== QUẢN LÝ STREAK ===================== */
+function getStreak() {
+  return parseInt(localStorage.getItem("streak") || "70");
+}
 
-      link.addEventListener('click', function(e) {
-        e.preventDefault(); // Ngăn hoàn toàn hành vi mặc định
+function setStreak(value) {
+  localStorage.setItem("streak", value);
+  document.getElementById("streakDisplay").textContent = value;
+  document.getElementById("streakValue").textContent = value;
+}
 
-        // Lần đầu bấm → mở Shopee
-        if (!this.dataset.clicked) {
-          window.open(SHOPEE_LINK, '_blank');
-          this.dataset.clicked = 'true';
-          this.innerHTML = 'Đang mở Shopee...';
-          this.style.color = '#999';
-          setTimeout(() => {
-            this.innerHTML = 'Bấm lại để vào khóa học';
-            this.style.color = '#e74c3c';
-          }, 2000);
-        }
-        // Lần thứ hai → chỉ mở nếu có link thật và không rỗng
-        else if (realLink && realLink.trim() !== '' && realLink !== '#') {
-          window.open(realLink, '_blank');
-        }
-        // Nếu không có link thật → không làm gì cả → KHÔNG reload trang
-      });
+function updateStreakDisplay() {
+  setStreak(getStreak());
+}
+
+function shouldReset() {
+  const lastDay = localStorage.getItem("lastCheckDay");
+  const today = new Date().toLocaleDateString("vi-VN");
+  if (lastDay !== today) {
+    localStorage.setItem("lastCheckDay", today);
+    return true;
+  }
+  return false;
+}
+
+function dailyPenalty() {
+  if (shouldReset()) {
+    const streak = Math.max(0, getStreak() - 10);
+    setStreak(streak);
+  }
+}
+
+function openAttendance() {
+  document.getElementById("attendanceModal").style.display = "flex";
+  document.getElementById("streakDisplay").textContent = getStreak();
+  document.getElementById("attendanceButton").disabled = false;
+}
+
+function closeAttendance() {
+  document.getElementById("attendanceModal").style.display = "none";
+}
+
+function diemDanh() {
+  const streak = Math.min(70, getStreak() + 10);
+  setStreak(streak);
+  document.getElementById("attendanceButton").disabled = true;
+  closeAttendance();
+  checkAccess();
+}
+
+function checkAccess() {
+  const streak = getStreak();
+  document.querySelectorAll(".go").forEach(btn => {
+    if (streak < 50) {
+      btn.style.pointerEvents = "none";
+      btn.style.opacity = "0.4";
+      btn.style.cursor = "not-allowed";
+    } else {
+      btn.style.pointerEvents = "auto";
+      btn.style.opacity = "1";
+      btn.style.cursor = "pointer";
+    }
+  });
+}
+
+/* ===================== LINK MỞ SHOPEE & KHÓA HỌC ===================== */
+function attachCourseHandlers() {
+  document.querySelectorAll("a.go").forEach(link => {
+    const real = link.getAttribute("data-real") || "";
+    link.addEventListener("click", e => {
+      e.preventDefault();
+
+      if (getStreak() < 50) {
+        alert("Streak phải đạt từ 50 trở lên để xem tài liệu.");
+        return;
+      }
+
+      // Lần đầu: mở Shopee, tăng đếm, đổi nhãn
+      if (!link.dataset.clicked) {
+        window.open(SHOPEE_LINK, "_blank");
+        link.dataset.clicked = "true";
+        link.innerHTML = "Bấm lại để vào khóa học";
+        link.style.color = "#e74c3c";
+
+        const c = Number(localStorage.getItem("shopee_click") || 0);
+        localStorage.setItem("shopee_click", c + 1);
+        return;
+      }
+
+      // Lần sau: mở link thật nếu có
+      if (real && real.trim() !== "" && real !== "#") {
+        window.open(real, "_blank");
+      }
     });
-
-
+  });
+}
 
 /* ===================== TUYẾT TRANG CHÍNH ===================== */
 function createSnowHome() {
@@ -832,39 +886,17 @@ function createSnowHome() {
 }
 createSnowHome();
 
-
 /* ===================== ĐẾM TRUY CẬP ===================== */
-let visits = Number(localStorage.getItem("visits") || 0);
+const visits = Number(localStorage.getItem("visits") || 0);
 localStorage.setItem("visits", visits + 1);
 
-
-/* ===================== CLICK LINKS SHOPEE ===================== */
-document.querySelectorAll(".go").forEach(a => {
-  a.addEventListener("click", function (e) {
-    e.preventDefault();
-    const real = this.dataset.real;
-    if (!real) return;
-
-    window.open(real, "_blank");
-
-    if (real.includes("shopee")) {
-      let c = Number(localStorage.getItem("shopee_click") || 0);
-      localStorage.setItem("shopee_click", c + 1);
-    }
-  });
-});
-
-
-/* ===================== MỞ ADMIN ===================== */
+/* ===================== ADMIN ===================== */
 function openAdmin() {
   document.getElementById("adminModal").style.display = "flex";
 }
 
-
-/* ===================== ĐĂNG NHẬP ADMIN ===================== */
 function login() {
   const pass = document.getElementById("adminPass").value;
-
   if (pass === "1810") {
     document.getElementById("adminModal").style.display = "none";
     document.getElementById("adminPanel").style.display = "flex";
@@ -875,22 +907,16 @@ function login() {
   }
 }
 
-
-/* ===================== LOAD DỮ LIỆU ADMIN ===================== */
 function loadAdminData() {
-  document.getElementById("showVisits").innerText = 
+  document.getElementById("showVisits").innerText =
     localStorage.getItem("visits") || 0;
-
   document.getElementById("showShopee").innerText =
     localStorage.getItem("shopee_click") || 0;
 }
 
-
-/* ===================== TUYẾT TRONG ADMIN ===================== */
 function snowAdminEffect() {
   const snow = document.getElementById("snowAdmin");
   snow.innerHTML = "";
-
   for (let i = 0; i < 30; i++) {
     const s = document.createElement("div");
     s.className = "snowflake";
@@ -903,112 +929,24 @@ function snowAdminEffect() {
   }
 }
 
-
-/* ===================== ĐĂNG XUẤT ===================== */
 function logout() {
   document.getElementById("adminPanel").style.display = "none";
 }
 
-
-/* ===================== ĐÓNG MODAL NẾU CLICK RA NGOÀI ===================== */
 window.onclick = function (e) {
   const modal = document.getElementById("adminModal");
   if (e.target === modal) modal.style.display = "none";
 };
-// Lấy streak
-  function getStreak() {
-    let streak = localStorage.getItem("streak");
-    if (!streak) {
-      localStorage.setItem("streak", 70);
-      return 70;
-    }
-    return parseInt(streak);
-  }
 
-  // 🟢 Lấy streak từ localStorage
-  function getStreak() {
-    return parseInt(localStorage.getItem("streak") || "70");
-  }
-
-  // 🟢 Lưu streak
-  function setStreak(value) {
-    localStorage.setItem("streak", value);
-    document.getElementById("streakDisplay").textContent = value;
-    document.getElementById("streakValue").textContent = value;
-  }
-
-  // 🟢 Kiểm tra ngày để reset 11:59 PM
-  function shouldReset() {
-    const lastDay = localStorage.getItem("lastCheckDay");
-    const today = new Date().toLocaleDateString("vi-VN");
-
-    if (lastDay !== today) {
-      localStorage.setItem("lastCheckDay", today);
-      return true;
-    }
-    return false;
-  }
-
-  // 🟢 Mở popup điểm danh
-  function openAttendance() {
-    document.getElementById("attendanceModal").style.display = "flex";
-    document.getElementById("streakDisplay").textContent = getStreak();
-  }
-
-  // 🟢 Đóng popup
-  function closeAttendance() {
-    document.getElementById("attendanceModal").style.display = "none";
-  }
-
-  // 🟢 Hàm điểm danh
-  function diemDanh() {
-    let streak = getStreak();
-
-    if (streak < 70) streak += 10;
-    if (streak > 70) streak = 70;
-
-    setStreak(streak);
-
-    document.getElementById("attendanceButton").disabled = true;
-
-    closeAttendance();
-
-    checkAccess();
-  }
-
-  // 🟢 Không điểm danh mất 10 streak
-  function dailyPenalty() {
-    if (shouldReset()) {
-      let streak = getStreak() - 10;
-      if (streak < 0) streak = 0;
-      setStreak(streak);
-    }
-  }
-
-  // 🟢 Khóa nút VÀO HỌC nếu streak < 50
-  function checkAccess() {
-    const streak = getStreak();
-    const button = document.querySelector(".go");
-
-    if (streak < 50) {
-      button.style.pointerEvents = "none";
-      button.style.opacity = "0.4";
-      button.style.cursor = "not-allowed";
-    } else {
-      button.style.pointerEvents = "auto";
-      button.style.opacity = "1";
-    }
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    dailyPenalty();
-    checkAccess();
-    document.getElementById("streakValue").textContent = getStreak();
-  });
-
+/* ===================== INIT ===================== */
+document.addEventListener("DOMContentLoaded", () => {
+  dailyPenalty();
   updateStreakDisplay();
-
+  checkAccess();
+  attachCourseHandlers();
+});
 </script>
+
 
 
 </body>
