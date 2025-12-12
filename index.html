@@ -22,6 +22,41 @@
 
 
   <style>
+/* ========== ANIMATIONS & EFFECTS ========== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(244, 211, 94, 0.5); }
+  50% { box-shadow: 0 0 40px rgba(244, 211, 94, 0.8); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
 
 .attendance-modal {
   display: flex;
@@ -34,6 +69,8 @@
   z-index: 99999;
   justify-content: center;
   align-items: center;
+  animation: fadeIn 0.3s ease;
+  backdrop-filter: blur(5px);
 }
 
 .attendance-content {
@@ -45,6 +82,20 @@
   width: 90%;
   box-shadow: 0 15px 50px rgba(0,0,0,0.3);
   border: 3px solid var(--noel-gold);
+  animation: scaleIn 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.attendance-content::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+  animation: shimmer 3s infinite;
 }
 
 .streak-display {
@@ -53,6 +104,14 @@
   font-weight: bold;
   margin: 20px 0;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+  animation: bounce 2s infinite;
+  position: relative;
+}
+
+.streak-display::after {
+  content: '🔥';
+  position: absolute;
+  animation: float 3s ease-in-out infinite;
 }
 
 .attendance-btn {
@@ -64,23 +123,56 @@
   font-size: 18px;
   cursor: pointer;
   margin-top: 20px;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.attendance-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.attendance-btn:hover::before {
+  width: 300px;
+  height: 300px;
 }
 
 .attendance-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+
+.attendance-btn:active {
+  transform: scale(0.98);
 }
 
 .attendance-btn:disabled {
   background: #ccc;
   cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.attendance-btn:disabled:hover {
+  transform: none;
 }
 
 .streak-info {
   margin: 15px 0;
   font-size: 14px;
   color: #666;
+  animation: fadeIn 0.6s ease;
 }
  
     /* --- ADMIN CONTAINER --- */
@@ -361,9 +453,374 @@
   font-size: 16px;
   backdrop-filter: blur(6px);
   box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+  animation: glow 2s infinite;
+  transition: all 0.3s ease;
 }
 
+.streak-box:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.25);
+}
 
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 768px) {
+  .wrap {
+    padding: 10px;
+  }
+
+  header {
+    padding: 15px;
+    margin: 10px 0;
+  }
+
+  .logo {
+    width: 70px;
+    height: 70px;
+  }
+
+  h1 {
+    font-size: clamp(1.4rem, 5vw, 2rem) !important;
+  }
+
+  nav {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  nav a {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .streak-box {
+    position: relative;
+    top: auto;
+    right: auto;
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+
+  .card {
+    padding: 15px;
+    margin: 15px 0;
+  }
+
+  .attendance-content {
+    padding: 25px 20px;
+    max-width: 95%;
+  }
+
+  .streak-display {
+    font-size: 2em;
+  }
+
+  .attendance-btn {
+    padding: 12px 25px;
+    font-size: 16px;
+    width: 100%;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  th, td {
+    padding: 8px 4px;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .social-fixed {
+    bottom: 15px;
+    right: 10px;
+  }
+
+  .social-fixed a {
+    width: 45px;
+    height: 45px;
+  }
+
+  .lights {
+    height: 30px;
+  }
+
+  .light {
+    width: 12px;
+    height: 12px;
+  }
+
+  header::before,
+  header::after {
+    font-size: 2em;
+  }
+
+  .courses-header h2 {
+    font-size: 18px;
+  }
+
+  .card h1,
+  .card h2 {
+    font-size: 1.2em;
+  }
+}
+
+@media (max-width: 480px) {
+  .wrap {
+    padding: 8px;
+  }
+
+  header {
+    padding: 12px;
+  }
+
+  .logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  h1 {
+    font-size: 1.3rem !important;
+    margin: 8px 0;
+  }
+
+  nav a {
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  .card {
+    padding: 12px;
+  }
+
+  .attendance-content {
+    padding: 20px 15px;
+  }
+
+  .streak-display {
+    font-size: 1.8em;
+  }
+
+  table {
+    font-size: 11px;
+  }
+
+  th, td {
+    padding: 6px 3px;
+  }
+
+  .social-fixed {
+    bottom: 10px;
+    right: 8px;
+  }
+
+  .social-fixed a {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .wrap {
+    max-width: 95%;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  table {
+    font-size: 13px;
+  }
+}
+
+/* ========== ENHANCED ANIMATIONS ========== */
+.card {
+  animation: fadeIn 0.6s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+nav a {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+nav a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+nav a:hover::before {
+  left: 100%;
+}
+
+.go {
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.go:hover {
+  color: var(--noel-red) !important;
+  transform: scale(1.1);
+}
+
+.go::after {
+  content: ' →';
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.go:hover::after {
+  opacity: 1;
+}
+
+.table-wrap {
+  animation: slideIn 0.8s ease;
+}
+
+tr {
+  transition: background-color 0.2s ease;
+}
+
+tr:hover {
+  background-color: #f0f0f0 !important;
+}
+
+.teacher-row {
+  animation: fadeIn 0.5s ease;
+}
+
+/* ========== LOADING STATES ========== */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* ========== SMOOTH SCROLLING ========== */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ========== TOUCH OPTIMIZATIONS ========== */
+@media (hover: none) {
+  .attendance-btn:hover {
+    transform: none;
+  }
+  
+  nav a:hover {
+    background: rgba(255,255,255,0.15);
+  }
+  
+  .card:hover {
+    transform: none;
+  }
+}
+
+/* ========== ACCESSIBILITY ========== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ========== WELCOME POPUP ========== */
+.welcome-popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  z-index: 100000;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.welcome-popup-content {
+  background: linear-gradient(135deg, #fff, #f0f4f7);
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+  border: 3px solid var(--noel-gold);
+  animation: scaleIn 0.4s ease;
+  position: relative;
+}
+
+.welcome-popup-content h2 {
+  color: var(--noel-red);
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+
+.welcome-popup-content p {
+  color: #333;
+  line-height: 1.6;
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.welcome-popup-content .highlight {
+  color: var(--noel-red);
+  font-weight: bold;
+}
+
+.welcome-popup-content .close-btn {
+  margin-top: 20px;
+  padding: 12px 30px;
+  background: linear-gradient(135deg, var(--noel-red), var(--noel-green));
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.welcome-popup-content .close-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+@media (max-width: 768px) {
+  .welcome-popup-content {
+    padding: 20px;
+    max-width: 95%;
+  }
+  
+  .welcome-popup-content h2 {
+    font-size: 20px;
+  }
+  
+  .welcome-popup-content p {
+    font-size: 14px;
+  }
+}
  
 </style>
 
@@ -446,11 +903,28 @@
 </div>
 
 
+<!-- POPUP THÔNG BÁO CẬP NHẬT -->
+<div id="welcomePopup" class="welcome-popup">
+  <div class="welcome-popup-content">
+    <h2>🎉 Thông Báo Cập Nhật</h2>
+    <p>
+      Website đã được <span class="highlight">cập nhật hệ thống tích streak</span> để duy trì xem web!
+    </p>
+    <p>
+      <span class="highlight">Các em cần điểm danh mỗi ngày</span> để nhận streak và duy trì quyền truy cập vào các khóa học.
+    </p>
+    <p>
+      <strong>Lưu ý:</strong> Streak phải đạt <span class="highlight">từ 50 điểm trở lên</span> mới có thể xem tài liệu. Hãy điểm danh mỗi ngày để giữ streak ở mức 70 điểm nhé!
+    </p>
+    <button class="close-btn" onclick="closeWelcomePopup()">Đã Hiểu</button>
+  </div>
+</div>
+
 <!-- POPUP ĐIỂM DANH -->
 <div id="attendanceModal" class="attendance-modal" style="display:none;">
   <div class="attendance-content">
     
-    <h2>🔥 Điểm Danh Hôm Nay</h2>
+    <h2>🔥 Nhận Streak hôm nay</h2>
 
     <div class="streak-display" id="streakDisplay">0</div>
 
@@ -459,11 +933,11 @@
       Duy trì streak để mở khóa học!
     </p>
 
-    <button id="attendanceButton" class="attendance-btn" onclick="diemDanh()">Điểm Danh Ngay</button>
+    <button id="attendanceButton" class="attendance-btn" onclick="diemDanh()">Nhận Streak hôm nay</button>
     <br><br>
 
     <button class="attendance-btn" style="background:#999;" onclick="closeAttendance()">Đóng</button>
-     <p><b style="color: red;">Lưu Ý:</b><i>Mọi người đăng nhập liên tục để giữ streak luôn ở mức 70, nếu streak dưới 50 thì mọi người sẽ không xem tài liệu được</i></p> 
+     <p><b style="color: red;">Lưu Ý:</b><i>Các em nhận streak mỗi ngày để luôn ở mức 70 điểm nhé, dưới 50 điểm streak sẽ không vào học được đó nhaa</i></p> 
   </div>
 </div>
 
@@ -472,19 +946,15 @@
   <div class="wrap">
     <header>
       <div class="streak-box">
-  Streak: <span id="streakValue">0</span> 🔥
+  Điểm streak hiện tại: <span id="streakValue">0</span> 🔥
 </div>
       <img src="image/logo.png" alt="Logo" class="logo">
       <h1 style="color:#ffffff;">HÀNH TRÌNH CHIA SẺ KHÓA HỌC MIỄN PHÍ</h1>
       <p style="color:#ffd700; font-size:1.2em;">Full Khóa Học 2K8 Free – Merry Christmas 2025!</p>
       <nav>
-        <a href="#khoahoc" onclick="return checkStreakBeforeAccess()" target="_blank"  >Khoá Học</a>
-        <a href="#" class="go" data-real="https://docs.google.com/spreadsheets/d/143R5_zIbigTW7AjlJSN-u_HEy2GMuaLXMDH4ZveFEjg/edit?gid=0#gid=0" target="_blank">Tài Liệu</a>
-        <a href="https://facebook.com/groups/686372527299508/" target="_blank">Nhóm FB</a>
-        <a href="https://zalo.me/g/rougor465" target="_blank">Nhóm Zalo</a>
-<a href="#" onclick="openAttendance()">Điểm Danh</a>
-      <a href="#" onclick="openAdmin()">Admin</a>
-
+        <a href="#khoahoc" onclick="scrollToCourses(); return false;">Khoá Học</a>
+        <a href="#" onclick="openShopee(); return false;">Tài Liệu</a>
+        <a href="#" onclick="openAttendance(); return false;">Nhận điểm Streak mỗi ngày</a>
       </nav>
     </header>
 
@@ -772,6 +1242,70 @@
 const SHOPEE_LINK = "https://s.shopee.vn/6AdemaGKEQ";
 const ADMIN_PASSWORD = "1810"; // mật khẩu mặc định
 
+/* ========== ADD RIPPLE CSS & NOTIFICATION STYLES ========== */
+const style = document.createElement('style');
+style.textContent = `
+  .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.6);
+    transform: scale(0);
+    animation: ripple-animation 0.6s ease-out;
+    pointer-events: none;
+  }
+  
+  @keyframes ripple-animation {
+    to {
+      transform: scale(4);
+      opacity: 0;
+    }
+  }
+  
+  .notification {
+    animation: slideIn 0.3s ease;
+    max-width: 90%;
+    word-wrap: break-word;
+  }
+  
+  @media (max-width: 768px) {
+    .notification {
+      top: 10px;
+      right: 10px;
+      left: 10px;
+      padding: 12px 20px;
+      font-size: 14px;
+    }
+  }
+`;
+document.head.appendChild(style);
+
+function showNotification(message, type = 'success') {
+  const notification = document.createElement('div');
+  notification.className = `notification notification-${type}`;
+  notification.textContent = message;
+  notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: ${type === 'success' ? '#2ecc71' : '#e74c3c'};
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    z-index: 100000;
+    animation: slideIn 0.3s ease;
+    font-weight: 600;
+    max-width: 400px;
+  `;
+  
+  document.body.appendChild(notification);
+  
+  setTimeout(() => {
+    notification.style.animation = 'fadeIn 0.3s ease reverse';
+    setTimeout(() => notification.remove(), 300);
+  }, 3000);
+}
+
 /* ===================== QUẢN LÝ STREAK ===================== */
 function getStreak() {
   return parseInt(localStorage.getItem("streak") || "70");
@@ -787,13 +1321,45 @@ function updateStreakDisplay() {
   setStreak(getStreak());
 }
 
+function getCurrentDateKey() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function hasAttendedToday() {
+  const lastAttendanceDate = localStorage.getItem("lastAttendanceDate");
+  const todayKey = getCurrentDateKey();
+  return lastAttendanceDate === todayKey;
+}
+
 function shouldReset() {
-  const lastDay = localStorage.getItem("lastCheckDay");
-  const today = new Date().toLocaleDateString("vi-VN");
-  if (lastDay !== today) {
-    localStorage.setItem("lastCheckDay", today);
+  const now = new Date();
+  const hour = now.getHours();
+  const minute = now.getMinutes();
+  
+  // Reset sau 11h59 tối (23:59)
+  if (hour >= 23 && minute >= 59) {
+    const lastResetDate = localStorage.getItem("lastResetDate");
+    const todayKey = getCurrentDateKey();
+    
+    if (lastResetDate !== todayKey) {
+      localStorage.setItem("lastResetDate", todayKey);
+      return true;
+    }
+  }
+  
+  // Kiểm tra nếu đã qua ngày mới (sau 00:00)
+  const lastCheckDay = localStorage.getItem("lastCheckDay");
+  const todayKey = getCurrentDateKey();
+  
+  if (lastCheckDay !== todayKey) {
+    localStorage.setItem("lastCheckDay", todayKey);
     return true;
   }
+  
   return false;
 }
 
@@ -801,13 +1367,27 @@ function dailyPenalty() {
   if (shouldReset()) {
     const streak = Math.max(0, getStreak() - 10);
     setStreak(streak);
+    // Reset trạng thái điểm danh khi reset streak
+    localStorage.removeItem("lastAttendanceDate");
   }
 }
 
 function openAttendance() {
   document.getElementById("attendanceModal").style.display = "flex";
   document.getElementById("streakDisplay").textContent = getStreak();
-  document.getElementById("attendanceButton").disabled = false;
+  
+  const button = document.getElementById("attendanceButton");
+  const hasAttended = hasAttendedToday();
+  
+  if (hasAttended) {
+    button.disabled = true;
+    button.textContent = "Đã điểm danh hôm nay";
+    button.style.background = "#95a5a6";
+  } else {
+    button.disabled = false;
+    button.textContent = "Nhận Streak hôm nay";
+    button.style.background = "";
+  }
 }
 
 function closeAttendance() {
@@ -815,11 +1395,38 @@ function closeAttendance() {
 }
 
 function diemDanh() {
+  // Kiểm tra xem đã điểm danh hôm nay chưa
+  if (hasAttendedToday()) {
+    showNotification("Bạn đã điểm danh hôm nay rồi! Vui lòng quay lại sau 11h59 tối để điểm danh ngày mai.", 'error');
+    return;
+  }
+  
+  // Lưu ngày điểm danh
+  const todayKey = getCurrentDateKey();
+  localStorage.setItem("lastAttendanceDate", todayKey);
+  
+  // Tăng streak
   const streak = Math.min(70, getStreak() + 10);
   setStreak(streak);
-  document.getElementById("attendanceButton").disabled = true;
-  closeAttendance();
-  checkAccess();
+  
+  // Vô hiệu hóa nút và cập nhật text
+  const button = document.getElementById("attendanceButton");
+  button.disabled = true;
+  button.textContent = "Đã điểm danh hôm nay";
+  button.style.background = "#95a5a6";
+  
+  // Mở link Shopee
+  window.open(SHOPEE_LINK, "_blank");
+  const clicks = Number(localStorage.getItem("shopee_click") || 0);
+  localStorage.setItem("shopee_click", clicks + 1);
+  
+  // Hiển thị thông báo thành công
+  showNotification("🎉 Điểm danh thành công! Bạn đã nhận +10 streak. Hãy quay lại sau 11h59 tối để điểm danh ngày mai!", 'success');
+  
+  setTimeout(() => {
+    closeAttendance();
+    checkAccess();
+  }, 1500);
 }
 
 function checkAccess() {
@@ -837,13 +1444,44 @@ function checkAccess() {
   });
 }
 
-// Dùng cho link "Khoá Học" trong nav để tránh lỗi undefined và cảnh báo rõ ràng.
-function checkStreakBeforeAccess() {
-  if (getStreak() < 50) {
-    alert("Streak phải đạt từ 50 trở lên để xem tài liệu.");
-    return false;
+// Scroll xuống phần khóa học
+function scrollToCourses() {
+  const coursesSection = document.getElementById('khoahoc');
+  if (coursesSection) {
+    // Kiểm tra streak trước khi scroll
+    if (getStreak() < 50) {
+      showNotification("Streak phải đạt từ 50 trở lên để xem tài liệu. Hãy điểm danh mỗi ngày để tăng streak!", 'error');
+      // Vẫn scroll xuống nhưng cảnh báo
+    }
+    
+    coursesSection.scrollIntoView({ 
+      behavior: 'smooth', 
+      block: 'start' 
+    });
   }
-  return true;
+}
+
+// Mở link Shopee khi click Tài Liệu
+function openShopee() {
+  window.open(SHOPEE_LINK, "_blank");
+  const clicks = Number(localStorage.getItem("shopee_click") || 0);
+  localStorage.setItem("shopee_click", clicks + 1);
+}
+
+// Hiển thị popup thông báo khi vào web lần đầu
+function showWelcomePopup() {
+  const hasSeenWelcome = localStorage.getItem("hasSeenWelcome");
+  if (!hasSeenWelcome) {
+    setTimeout(() => {
+      document.getElementById("welcomePopup").style.display = "flex";
+    }, 1000); // Hiển thị sau 1 giây
+  }
+}
+
+// Đóng popup thông báo
+function closeWelcomePopup() {
+  document.getElementById("welcomePopup").style.display = "none";
+  localStorage.setItem("hasSeenWelcome", "true");
 }
 
 /* ===================== LINK MỞ SHOPEE & KHÓA HỌC ===================== */
@@ -854,23 +1492,10 @@ function attachCourseHandlers() {
       e.preventDefault();
 
       if (getStreak() < 50) {
-        alert("Streak phải đạt từ 50 trở lên để xem tài liệu.");
+        showNotification("Streak phải đạt từ 50 trở lên để xem tài liệu. Hãy điểm danh mỗi ngày để tăng streak!", 'error');
         return;
       }
 
-      // Lần đầu: mở Shopee, tăng đếm, đổi nhãn
-      if (!link.dataset.clicked) {
-        window.open(SHOPEE_LINK, "_blank");
-        link.dataset.clicked = "true";
-        link.innerHTML = "Bấm lại để vào khóa học";
-        link.style.color = "#e74c3c";
-
-        const c = Number(localStorage.getItem("shopee_click") || 0);
-        localStorage.setItem("shopee_click", c + 1);
-        return;
-      }
-
-      // Lần sau: mở link thật nếu có
       if (real && real.trim() !== "" && real !== "#") {
         window.open(real, "_blank");
       }
@@ -946,7 +1571,62 @@ function logout() {
 window.onclick = function (e) {
   const modal = document.getElementById("adminModal");
   if (e.target === modal) modal.style.display = "none";
+  
+  const welcomePopup = document.getElementById("welcomePopup");
+  if (e.target === welcomePopup) closeWelcomePopup();
 };
+
+/* ===================== ANIMATION HELPERS ===================== */
+function animateOnScroll() {
+  const elements = document.querySelectorAll('.card, .table-wrap, .courses-header');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animation = 'fadeIn 0.6s ease forwards';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  
+  elements.forEach(el => observer.observe(el));
+}
+
+function addRippleEffect() {
+  document.querySelectorAll('.attendance-btn, nav a, .go').forEach(button => {
+    button.addEventListener('click', function(e) {
+      const ripple = document.createElement('span');
+      const rect = this.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      const x = e.clientX - rect.left - size / 2;
+      const y = e.clientY - rect.top - size / 2;
+      
+      ripple.style.width = ripple.style.height = size + 'px';
+      ripple.style.left = x + 'px';
+      ripple.style.top = y + 'px';
+      ripple.classList.add('ripple');
+      
+      this.appendChild(ripple);
+      
+      setTimeout(() => ripple.remove(), 600);
+    });
+  });
+}
+
+function updateTimeDisplay() {
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const seconds = now.getSeconds();
+  
+  // Kiểm tra nếu đã qua 11h59 tối để reset
+  if (hours >= 23 && minutes >= 59) {
+    shouldReset();
+  }
+  
+  // Cập nhật lại sau 1 giây
+  setTimeout(updateTimeDisplay, 1000);
+}
+
 
 /* ===================== INIT ===================== */
 document.addEventListener("DOMContentLoaded", () => {
@@ -954,6 +1634,17 @@ document.addEventListener("DOMContentLoaded", () => {
   updateStreakDisplay();
   checkAccess();
   attachCourseHandlers();
+  animateOnScroll();
+  addRippleEffect();
+  updateTimeDisplay();
+  showWelcomePopup(); // Hiển thị popup thông báo khi vào web lần đầu
+  
+  // Thêm hiệu ứng fade-in cho body
+  document.body.style.opacity = '0';
+  setTimeout(() => {
+    document.body.style.transition = 'opacity 0.5s ease';
+    document.body.style.opacity = '1';
+  }, 100);
 });
 </script>
 
