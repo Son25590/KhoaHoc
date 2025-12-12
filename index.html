@@ -1651,4 +1651,1658 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 </body>
+</html><!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Ôn Thi Nhanh – Khoá Học Miễn Phí 2K8 | Merry Christmas 2025</title>
+  <link rel="icon" type="image/png" href="image/logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Mountains+of+Christmas:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+<link rel="icon" type="image/png" href="image/logo.png" />
+<link rel="shortcut icon" href="image/logo.png" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "url": "https://www.ontihinhanh.com",
+  "logo": "https://www.ontihinhanh.com/logo.png"
+}
+</script>
+
+
+  <style>
+/* ========== ANIMATIONS & EFFECTS ========== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(244, 211, 94, 0.5); }
+  50% { box-shadow: 0 0 40px rgba(244, 211, 94, 0.8); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.attendance-modal {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  z-index: 99999;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.attendance-content {
+  background: linear-gradient(135deg, #fff, #f0f4f7);
+  padding: 40px;
+  border-radius: 24px;
+  text-align: center;
+  max-width: 450px;
+  width: 90%;
+  box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+  border: 3px solid var(--noel-gold);
+  animation: scaleIn 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.attendance-content::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+  animation: shimmer 3s infinite;
+}
+
+.streak-display {
+  font-size: 3em;
+  color: var(--noel-red);
+  font-weight: bold;
+  margin: 20px 0;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+  animation: bounce 2s infinite;
+  position: relative;
+}
+
+.streak-display::after {
+  content: '🔥';
+  position: absolute;
+  animation: float 3s ease-in-out infinite;
+}
+
+.attendance-btn {
+  padding: 15px 40px;
+  background: linear-gradient(135deg, var(--noel-red), var(--noel-green));
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.attendance-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.attendance-btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.attendance-btn:hover {
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+
+.attendance-btn:active {
+  transform: scale(0.98);
+}
+
+.attendance-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.attendance-btn:disabled:hover {
+  transform: none;
+}
+
+.streak-info {
+  margin: 15px 0;
+  font-size: 14px;
+  color: #666;
+  animation: fadeIn 0.6s ease;
+}
+ 
+    /* --- ADMIN CONTAINER --- */
+#adminPanel {
+  display: none;
+  width: 100%;
+  height: 100vh;
+  background: url('https://i.imgur.com/13UuW5X.png') center/cover no-repeat;
+  display: flex;
+  padding: 20px;
+  gap: 20px;
+  position: relative;
+}
+
+/* Cột trái (hiển thị nội dung) */
+.admin-left {
+  flex: 2;
+  background: rgba(255,255,255,0.85);
+  padding: 20px;
+  border-radius: 14px;
+  backdrop-filter: blur(6px);
+  position: relative;
+  overflow-y: auto;
+}
+
+/* Cột phải (menu + nút) */
+.admin-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255,255,255,0.85);
+  padding: 20px;
+  border-radius: 14px;
+  height: calc(100vh - 40px);
+  position: relative;
+}
+
+/* DANH MỤC */
+.admin-menu {
+  flex: 1;
+}
+
+.admin-menu button {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: none;
+  background: #ef4444;
+  color: white;
+  font-size: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.admin-menu button:hover {
+  background: #dc2626;
+}
+
+/* KHU NÚT CUỐI CÙNG */
+.admin-bottom {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: calc(100% - 40px);
+}
+
+.admin-bottom button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.admin-bottom button:last-child {
+  background: #6b7280;
+}
+
+.admin-bottom button:hover {
+  opacity: 0.85;
+}
+/* --- HIỆU ỨNG NOEL (TUYẾT)--- */
+.snowflake {
+  position: absolute;
+  color: white;
+  user-select: none;
+  pointer-events: none;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  0% { transform: translateY(-10vh); opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+
+
+
+ :root {
+    --noel-red: #e63946;
+    --noel-green: #2a9d8f;
+    --noel-white: #ffffff;
+    --noel-gold: #f4d35e;
+  }
+
+
+  /* Thẻ card Noel */
+  .card {
+    background: var(--noel-white);
+    padding: 28px 24px;
+    border-radius: 18px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    margin-bottom: 24px;
+    border-left: 6px solid var(--noel-red);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: "🎄";
+    position: absolute;
+    font-size: 46px;
+    opacity: 0.15;
+    right: 10px;
+    top: 5px;
+  }
+
+  .card h1, 
+  .card h2 {
+    font-weight: 700;
+    color: var(--noel-red);
+  }
+
+  .card p,
+  .card li,
+  .card ol {
+    color: #333;
+    line-height: 1.55;
+  }
+
+  /* Danh sách khóa học */
+  .courses-header {
+    background: linear-gradient(135deg, var(--noel-green), var(--noel-red));
+    padding: 18px 20px;
+    border-radius: 16px;
+    color: var(--noel-white);
+    margin-bottom: 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  }
+
+  .courses-header h2 {
+    margin: 0;
+    font-size: 22px;
+    color: var(--noel-white);
+  }
+
+  .courses-header p {
+    margin: 4px 0 0;
+    opacity: 0.95;
+  }
+
+  /* Icon bullet list */
+  .card ul li {
+    list-style: none;
+    margin-bottom: 6px;
+    padding-left: 24px;
+    position: relative;
+  }
+
+  .card ul li::before {
+    content: "🎁";
+    position: absolute;
+    left: 0;
+  }
+
+  .card ol li {
+    margin: 6px 0;
+  }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a2f 100%);
+      /* color: #000000; */
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Tuyết rơi */
+    .snow { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:5; }
+    .snowflake { position:absolute; color:#fff; font-size:1.5em; opacity:0.9; animation:fall linear infinite; }
+    @keyframes fall { to { transform:translateY(100vh) rotate(360deg); } }
+
+    /* Đèn trang trí */
+    .lights { position:fixed; top:0; left:0; width:100%; height:40px; background:rgba(0,0,0,0.4); display:flex; justify-content:space-around; align-items:center; z-index:10; }
+    .light { width:18px; height:18px; border-radius:50%; animation:twinkle 1.8s infinite alternate; }
+    .light.red { background:#e74c3c; box-shadow:0 0 15px #e74c3c; }
+    .light.green { background:#2ecc71; box-shadow:0 0 15px #2ecc71; animation-delay:0.5s; }
+    .light.gold { background:#f1c40f; box-shadow:0 0 15px #f1c40f; animation-delay:1s; }
+    @keyframes twinkle { from{opacity:1;} to{opacity:0.4;} }
+
+    .wrap { max-width:1100px; margin:0 auto; padding:15px; position:relative; z-index:20; }
+
+    /* Header Noel */
+    header {
+      text-align:center; padding:20px; margin:20px 0; border-radius:20px;
+      background: linear-gradient(135deg, var(--red), var(--green));
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      position:relative; overflow:hidden;
+    }
+    header::before { content:"🎄"; position:absolute; top:10px; left:15px; font-size:3em; animation:spin 6s linear infinite; }
+    header::after { content:"🎁"; position:absolute; bottom:10px; right:15px; font-size:3em; animation:spin 6s linear infinite reverse; }
+    @keyframes spin { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+
+    .logo { width:90px; height:90px; border-radius:50%; border:5px solid var(--gold); box-shadow:0 0 20px var(--gold); animation:pulse 3s infinite; }
+    @keyframes pulse { 0%,100%{box-shadow:0 0 20px var(--gold)} 50%{box-shadow:0 0 40px #fff} }
+
+    h1 { font-family:'Mountains of Christmas', cursive; font-size:clamp(1.8rem,6vw,2.8rem); color:var(--gold); text-shadow:2px 2px 10px #000; margin:10px 0; }
+    nav { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:15px; }
+    nav a {
+      padding:12px 18px; border-radius:12px; background:rgba(255,255,255,0.15); color:#fff; text-decoration:none;
+      font-weight:600; transition:0.3s; border:2px solid transparent;
+    }
+    nav a:hover { background:var(--gold); color:var(--red); transform:translateY(-3px); }
+    nav a.primary { background:var(--gold); color:var(--red); }
+
+    /* Card */
+    .card { background:#fff; color:#333; border-radius:16px; padding:20px; margin:20px 0; box-shadow:0 8px 25px rgba(0,0,0,0.3); position:relative; overflow:hidden; }
+    .card::before { content:"🎅"; position:absolute; top:10px; right:15px; font-size:2em; opacity:0.1; }
+
+    /* Bảng khóa học */
+    .table-wrap { overflow-x:auto; border-radius:16px; background:#fff; box-shadow:0 8px 30px rgba(0,0,0,0.3); }
+    table { width:100%; border-collapse:collapse; font-size:14px; }
+    th { background:linear-gradient(90deg,var(--red),var(--green)); color:#fff; padding:15px; text-align:center; }
+    td { padding:12px; border-bottom:1px solid #fff; }
+    tr:nth-child(even) { background:#f8f9fa; }
+    .teacher-row { background:#ff6b6b !important; color:#fff; font-weight:bold; text-transform:uppercase; }
+    .go {  font-weight:bold; text-decoration:none; }
+    .go:hover { text-decoration:underline; }
+
+    /* Admin Modal & Dashboard */
+    .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999; justify-content:center; align-items:center; }
+    .modal-content { background:#fff; padding:30px; border-radius:20px; text-align:center; width:90%; max-width:400px; box-shadow:0 0 30px var(--gold); }
+    .admin-dashboard { position:fixed; top:0; left:0; width:100%; height:100%; background:#111; color:#fff; z-index:9998; overflow-y:auto; padding:20px; display:none; }
+    .stat-card { background:var(--red); color:#fff; padding:15px; border-radius:12px; margin:10px 0; text-align:center; }
+
+    /* Nút cố định */
+    .social-fixed {
+      position:fixed; bottom:20px; right:15px; display:flex; flex-direction:column; gap:12px; z-index:100;
+    }
+    .social-fixed a {
+      width:50px; height:50px; background:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center;
+      box-shadow:0 5px 15px rgba(0,0,0,0.4); transition:0.3s;
+    }
+    .social-fixed a:hover { transform:scale(1.2); }
+
+    footer { text-align:center; padding:20px; color:var(--gold); font-size:14px; margin-top:30px; }
+ 
+.header-top {
+  position: relative; /* Quan trọng để streak bám theo */
+}
+
+.streak-box {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 8px 18px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 12px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+  animation: glow 2s infinite;
+  transition: all 0.3s ease;
+}
+
+.streak-box:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 768px) {
+  .wrap {
+    padding: 10px;
+  }
+
+  header {
+    padding: 15px;
+    margin: 10px 0;
+  }
+
+  .logo {
+    width: 70px;
+    height: 70px;
+  }
+
+  h1 {
+    font-size: clamp(1.4rem, 5vw, 2rem) !important;
+  }
+
+  nav {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  nav a {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .streak-box {
+    position: relative;
+    top: auto;
+    right: auto;
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+
+  .card {
+    padding: 15px;
+    margin: 15px 0;
+  }
+
+  .attendance-content {
+    padding: 25px 20px;
+    max-width: 95%;
+  }
+
+  .streak-display {
+    font-size: 2em;
+  }
+
+  .attendance-btn {
+    padding: 12px 25px;
+    font-size: 16px;
+    width: 100%;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  th, td {
+    padding: 8px 4px;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .social-fixed {
+    bottom: 15px;
+    right: 10px;
+  }
+
+  .social-fixed a {
+    width: 45px;
+    height: 45px;
+  }
+
+  .lights {
+    height: 30px;
+  }
+
+  .light {
+    width: 12px;
+    height: 12px;
+  }
+
+  header::before,
+  header::after {
+    font-size: 2em;
+  }
+
+  .courses-header h2 {
+    font-size: 18px;
+  }
+
+  .card h1,
+  .card h2 {
+    font-size: 1.2em;
+  }
+}
+
+@media (max-width: 480px) {
+  .wrap {
+    padding: 8px;
+  }
+
+  header {
+    padding: 12px;
+  }
+
+  .logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  h1 {
+    font-size: 1.3rem !important;
+    margin: 8px 0;
+  }
+
+  nav a {
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  .card {
+    padding: 12px;
+  }
+
+  .attendance-content {
+    padding: 20px 15px;
+  }
+
+  .streak-display {
+    font-size: 1.8em;
+  }
+
+  table {
+    font-size: 11px;
+  }
+
+  th, td {
+    padding: 6px 3px;
+  }
+
+  .social-fixed {
+    bottom: 10px;
+    right: 8px;
+  }
+
+  .social-fixed a {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .wrap {
+    max-width: 95%;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  table {
+    font-size: 13px;
+  }
+}
+
+/* ========== ENHANCED ANIMATIONS ========== */
+.card {
+  animation: fadeIn 0.6s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+nav a {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+nav a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+nav a:hover::before {
+  left: 100%;
+}
+
+.go {
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.go:hover {
+  color: var(--noel-red) !important;
+  transform: scale(1.1);
+}
+
+.go::after {
+  content: ' →';
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.go:hover::after {
+  opacity: 1;
+}
+
+.table-wrap {
+  animation: slideIn 0.8s ease;
+}
+
+tr {
+  transition: background-color 0.2s ease;
+}
+
+tr:hover {
+  background-color: #f0f0f0 !important;
+}
+
+.teacher-row {
+  animation: fadeIn 0.5s ease;
+}
+
+/* ========== LOADING STATES ========== */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* ========== SMOOTH SCROLLING ========== */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ========== TOUCH OPTIMIZATIONS ========== */
+@media (hover: none) {
+  .attendance-btn:hover {
+    transform: none;
+  }
+  
+  nav a:hover {
+    background: rgba(255,255,255,0.15);
+  }
+  
+  .card:hover {
+    transform: none;
+  }
+}
+
+/* ========== ACCESSIBILITY ========== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ========== WELCOME POPUP ========== */
+.welcome-popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  z-index: 100000;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.welcome-popup-content {
+  background: linear-gradient(135deg, #fff, #f0f4f7);
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+  border: 3px solid var(--noel-gold);
+  animation: scaleIn 0.4s ease;
+  position: relative;
+}
+
+.welcome-popup-content h2 {
+  color: var(--noel-red);
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+
+.welcome-popup-content p {
+  color: #333;
+  line-height: 1.6;
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.welcome-popup-content .highlight {
+  color: var(--noel-red);
+  font-weight: bold;
+}
+
+.welcome-popup-content .close-btn {
+  margin-top: 20px;
+  padding: 12px 30px;
+  background: linear-gradient(135deg, var(--noel-red), var(--noel-green));
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.welcome-popup-content .close-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+@media (max-width: 768px) {
+  .welcome-popup-content {
+    padding: 20px;
+    max-width: 95%;
+  }
+  
+  .welcome-popup-content h2 {
+    font-size: 20px;
+  }
+  
+  .welcome-popup-content p {
+    font-size: 14px;
+  }
+}
+ 
+</style>
+
+
+
+
+
+
+</head>
+<body>
+
+
+
+  <!-- Tuyết rơi -->
+  <div class="snow" id="snow"></div>
+  <div class="lights">
+    <div class="light red"></div><div class="light green"></div><div class="light gold"></div>
+    <div class="light red"></div><div class="light green"></div><div class="light gold"></div>
+    <div class="light red"></div><div class="light green"></div>
+  </div>
+
+
+
+<!-- ========== MODAL ĐĂNG NHẬP ADMIN ========== -->
+<div id="adminModal" style="
+  display:none; position:fixed; top:0; left:0;
+  width:100%; height:100%; background:rgba(0,0,0,0.6);
+  align-items:center; justify-content:center; z-index:9999;">
+  
+  <div style="
+    background:#fff; padding:20px; width:300px;
+    border-radius:10px; text-align:center; position:relative;">
+    
+    <h2>🔐 Đăng nhập Admin</h2>
+    <input id="adminPass" type="password" placeholder="Nhập mật khẩu..."
+      style="width:100%; padding:10px; margin-top:15px; border-radius:6px; border:1px solid #ccc;">
+    
+    <button onclick="login()" style="
+      margin-top:15px; padding:10px 20px; width:100%;
+      background:#27ae60; color:#fff; border:none; border-radius:6px; cursor:pointer;">
+      Đăng nhập
+    </button>
+  </div>
+</div>
+
+
+<!-- ========== GIAO DIỆN ADMIN PANEL ========== -->
+<div id="adminPanel" style="
+  display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+  background:#f0f4f7; padding:30px; z-index:99999;">
+
+  <!-- Tuyết trong admin -->
+  <div id="snowAdmin"></div>
+
+  <div style="
+    max-width:500px; margin:auto; background:#fff; padding:20px;
+    border-radius:12px; box-shadow:0 0 20px rgba(0,0,0,0.1); text-align:center;">
+    
+    <h2>🎄 Admin Dashboard</h2>
+    <p>Hệ thống theo dõi truy cập & click Shopee</p>
+
+    <hr style="margin:20px 0;">
+
+    <p style="font-size:18px;">👁️ Tổng lượt truy cập:  
+      <b id="showVisits" style="color:#e74c3c;">0</b>
+    </p>
+
+    <p style="font-size:18px;">🛒 Tổng Click Shopee:  
+      <b id="showShopee" style="color:#2980b9;">0</b>
+    </p>
+
+    <hr style="margin:20px 0;">
+
+    <button onclick="logout()" style="
+      padding:10px 20px; background:#c0392b; color:#fff;
+      border:none; border-radius:6px; cursor:pointer;">
+      Đăng xuất
+    </button>
+  </div>
+</div>
+
+
+<!-- POPUP THÔNG BÁO CẬP NHẬT -->
+<div id="welcomePopup" class="welcome-popup">
+  <div class="welcome-popup-content">
+    <h2>🎉 Thông Báo Cập Nhật</h2>
+    <p>
+      Website đã được <span class="highlight">cập nhật hệ thống tích streak</span> để duy trì xem web!
+    </p>
+    <p>
+      <span class="highlight">Các em cần cập nhật StreakStreak mỗi ngày</span> để có thể xem khóa học bình thường.
+    </p>
+    <p>
+      <strong>Lưu ý:</strong> Streak phải đạt <span class="highlight">từ 50 điểm trở lên</span> mới có thể xem tài liệu. Hãy điểm danh mỗi ngày để giữ streak ở mức 70 điểm nhé!
+    </p>
+    <button class="close-btn" onclick="closeWelcomePopup()">Đã Hiểu</button>
+  </div>
+</div>
+
+<!-- POPUP ĐIỂM DANH -->
+<div id="attendanceModal" class="attendance-modal" style="display:none;">
+  <div class="attendance-content">
+    
+    <h2>🔥 Nhận Streak hôm nay</h2>
+
+    <div class="streak-display" id="streakDisplay">0</div>
+
+    <p class="streak-info">
+      Bạn sẽ nhận +10 streak cho mỗi lần điểm danh.  
+      Duy trì streak để mở khóa học!
+    </p>
+
+    <button id="attendanceButton" class="attendance-btn" onclick="diemDanh()">Nhận Streak hôm nay</button>
+    <br><br>
+
+    <button class="attendance-btn" style="background:#999;" onclick="closeAttendance()">Đóng</button>
+     <p><b style="color: red;">Lưu Ý:</b><i>Các em nhận streak mỗi ngày để luôn ở mức 70 điểm nhé, dưới 50 điểm streak sẽ không vào học được đó nhaa</i></p> 
+  </div>
+</div>
+
+
+
+  <div class="wrap">
+    <header>
+      <div class="streak-box">
+  Điểm streak hiện tại: <span id="streakValue">0</span> 🔥
+</div>
+      <img src="image/logo.png" alt="Logo" class="logo">
+      <h1 style="color:#ffffff;">HÀNH TRÌNH CHIA SẺ KHÓA HỌC MIỄN PHÍ</h1>
+      <p style="color:#ffd700; font-size:1.2em;">Full Khóa Học 2K8 Free – Merry Christmas 2025!</p>
+      <nav>
+        <a href="#khoahoc" onclick="scrollToCourses(); return false;">Khoá Học</a>
+        <a href="#" onclick="openShopee(); return false;">Tài Liệu</a>
+        <a style="background-color: red; color:yellow;" href="#" onclick="openAttendance(); return false;">Nhận điểm Streak mỗi ngày</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="card">
+        <h1 style="text-align:center; color:var(--red);">CHINH PHỤC THPT QG 2026</h1>
+        <p style="text-align:center; font-size:1.1em;">Kho tài liệu MIỄN PHÍ từ các thầy cô TOP đầu Việt Nam!</p>
+       <h2>Tài liệu học tập MIỄN PHÍ từ các thầy cô hàng đầu!</h2>
+          <p>Chào các sĩ tử 2K8 – tương lai của đất nước!</p>
+          <p>Bạn đang tìm kiếm một lộ trình học tập toàn diện, chất lượng cao nhưng lại lo lắng về chi phí? Đừng lo! Chúng tôi mang đến cho bạn cơ hội sở hữu kho tài liệu – khóa học chất lượng nhất HOÀN TOÀN MIỄN PHÍ.</p>
+
+          <h2>TẠI SAO BẠN KHÔNG THỂ BỎ LỠ?</h2>
+          <ul>
+            <li><strong>Chất lượng đỉnh cao – hoàn toàn miễn phí:</strong> Tài liệu, bài giảng, khóa học đều được biên soạn bởi các thầy cô uy tín.</li>
+            <li><strong>Kho kiến thức đa dạng:</strong> Toán – Lý – Hóa – Sinh – Văn – Anh – Sử – Địa + ĐGNL/ĐGTD/HSA/TSA</li>
+            <li><strong></strong> Khóa Học Không Cần Điểm Danh - Không Vượt Link</li>
+          
+          </ul>
+
+          <h2>CÁCH NHẬN TRUY CẬP CÁC KHÓA HỌC BỊ KHÓA</h2>
+          <ol>
+            <li>Chuẩn bị tinh thần học tập nghiêm túc.</li>
+            <li>Inbox fanpage: <a href="https://www.facebook.com/share/1BMnAjQUBY/" target="_blank"><strong>Fanpage Chia Sẻ Tài Liệu</strong></a></li>
+            <li>Nhận hướng dẫn truy cập từ Admin (có giới hạn số lượng).</li>
+          </ol>
+
+          <h2 style="text-align:center;color:#e74c3c">Bảng Tổng Hợp Khoá Học Free 2K8 – XPS (Cập nhật liên tục đến khi thi)</h2>
+        </div>
+
+        <div class="courses" id="khoahoc">
+          <div class="courses-header">
+            <h2>Danh Sách Khóa Học Miễn Phí</h2>
+            <p style="margin:0;font-size:14px;color:#aaa">Cập nhật thường xuyên – Kéo xuống để xem hết</p>
+         
+    
+    
+    </div>
+
+      <div class="table-wrap" id="khoahoc">
+        <table id="courseTable">
+          <thead>
+            <tr><th>MÔN</th><th>GIÁO VIÊN</th><th>TÊN KHÓA HỌC</th><th>LINK</th></tr>
+          </thead>
+          <tbody id="courseBody">
+           
+              <!-- TOÁN -->
+              <tr class="teacher-row"><td colspan="4">TOÁN – THẦY NGUYỄN QUỐC CHÍ</td></tr>
+              <tr><td>Toán</td><td>Thầy Nguyễn Quốc Chí</td><td>Chuyên đề Lớp 12 (Sách Cánh Diều)</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/khoa-hoc-ang-mo-tren-shopee-trang-se-tu.html">Vào học</a></td></tr>
+              <tr><td>Toán</td><td>Thầy Nguyễn Quốc Chí</td><td>Chuyên đề Lớp 12 (Sách KNTT)</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/2k8-toan-thay-chi-khoa-chuyen-e-lop-12.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">TOÁN – THẦY ĐỖ VĂN ĐỨC</td></tr>
+              <tr><td>Toán</td><td>Thầy Đỗ Văn Đức</td><td>Khóa T - Nền Tảng Tenschool 2K8</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/thay-o-van-uc-khoa-t-nen-tang-tenschool.html">Vào học</a></td></tr>
+              <tr><td>Toán</td><td>Thầy Đỗ Văn Đức</td><td>Khóa E - Chuyên đề Toán chuyên sâu</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/document.html">Vào học</a></td></tr>
+              <tr><td>Toán</td><td>Thầy Đỗ Văn Đức</td><td>Khóa N Thực chiến luyện đề</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/document.html">Vào học</a></td></tr>
+              <tr><td>Toán</td><td>Thầy Đỗ Văn Đức</td><td>Xây nền</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/thay-o-van-uc-khoa-xay-nen.html">Vào học</a></td></tr>
+              <tr><td>Toán</td><td>Thầy Đỗ Văn Đức</td><td>Toán 12 - Khóa học chinh phục Toán thực tế</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/11/toan-thuc-te-thay-uc.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">TOÁN – CÔ NGỌC HUYỀN LB</td></tr>
+              <tr><td>Toán</td><td>Cô Ngọc Huyền LB</td><td>Step 1 - Nền tảng Toán 12</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/co-ngoc-huyen-lb-step-1-nen-tang-toan.html">Vào học</a></td></tr>
+              <tr><td>Toán</td><td>Cô Ngọc Huyền LB</td><td>Step 2 - Vận dụng Toán 12</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/co-ngoc-huyen-lb-step-2-van-dung-toan-12.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">TOÁN – THẦY NGUYỄN ĐĂNG ÁI</td></tr>
+              <tr><td>Toán</td><td>Thầy Nguyễn Đăng Ái</td><td>TDMX 2026 - Chinh phục nền tảng vận dụng Toán THPT 2026</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/tdmx2026-chinh-phuc-nen-tang-van-dung.html">Vào học</a></td></tr>
+              <tr><td>Toán</td><td>Thầy Nguyễn Đăng Ái</td><td>Khóa 2: Bứt phá VDC 9.5</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/tdmx2026-chinh-phuc-nen-tang-van-dung.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">TOÁN – THẦY NGUYỄN PHAN TIẾN</td></tr>
+              <tr><td>Toán</td><td>Thầy Nguyễn Phan Tiến</td><td>Khóa S - Chuyên đề Nền tảng SGK mới</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/thay-nguyen-phan-tien-khoa-s-chuyen-e.html">Vào học</a></td></tr>
+              <tr><td>Toán</td><td>Thầy Nguyễn Phan Tiến</td><td>Khóa M - Live Zoom chuyên đề hàng tuần</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/thay-nguyen-phan-tien-khoa-m-livezoom.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">TOÁN – THẦY NGUYỄN TIẾN ĐẠT</td></tr>
+              <tr><td>Toán</td><td>Thầy Nguyễn Tiến Đạt</td><td>SSVOD Chuyên đề S1</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/thay-nguyen-tien-at-ssvod-chuyen-e-s1.html">Vào học</a></td></tr>
+              <tr><td>Toán</td><td>Thầy Nguyễn Tiến Đạt</td><td>ClassIn Chuyên đề S1</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/thay-nguyen-tien-at-classin-chuyen-e-s1.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">TOÁN – THẦY TRỊNH ĐÌNH THÀNH DPAD</td></tr>
+              <tr><td>Toán</td><td>Thầy Trịnh Đình Thành DPAD</td><td>Giai đoạn 1 Nắm chắc 9Đ</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/toan-dpad.html">Vào học</a></td></tr>
+              <tr><td>Toán</td><td>Thầy Trịnh Đình Thành DPAD</td><td>Khóa 2: Bứt phá VDC 9.5</td><td><a href="#" class="go" data-real="">Vào học</a></td></tr>
+              <tr><td>Toán</td><td>Thầy Trịnh Đình Thành DPAD</td><td>Toán xác suất</td><td><a href="#" class="go" data-real="">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">TOÁN – THẦY HUY HƯỚNG NỘI</td></tr>
+              <tr><td>Toán Xác Suất</td><td>Thầy Huy Hướng Nội</td><td>Khóa chuyên đề</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/11/huy-huong-noi.html">Vào học</a></td></tr>
+              <tr><td>Toán Xác Suất</td><td>Thầy Huy Hướng Nội</td><td>Cày VD VDC mỗi ngày 2025 - Thầy Huy - TMTSchool</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/11/huy-huong-noi.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">TOÁN – LXO</td></tr>
+              <tr><td>Toán LXO</td><td>-</td><td>Toán LXO - 2K8 - Các buổi học về Toán thực tế</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/11/toan-lxo-2k8-cac-buoi-hoc-ve-toan-thuc.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">TOÁN – TUYỆT KỸ CASIO VIP</td></tr>
+              <tr><td>Toán</td><td>-</td><td>2K8 - Khóa bổ trợ - Casio</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/11/casio.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">ANH Shipper</td></tr>
+              <tr><td>Toán</td><td>Anh Shipper</td><td>Khóa Học Bá 12a3</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/11/khoa-hoc-ba-12a3.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">ANH – GIAO KID</td></tr>
+              <tr><td>Toán</td><td>Anh Giáo Kid</td><td>Khóa S</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/11/anh-giao-kid.html">Vào học</a></td></tr>
+              <tr><td>Toán</td><td>Anh Giáo Kid</td><td>Khóa Tích hợp</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/11/anh-giao-kid.html">Vào học</a></td></tr>
+              <tr><td>Toán</td><td>Anh Giáo Kid</td><td>Khóa Toán thực tế VDC</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/11/anh-giao-kid.html">Vào học</a></td></tr>
+
+                <tr class="teacher-row"><td colspan="4">TỔ TOÁN MAPSTUDY 2K8</td></tr>
+              <tr><td>Toán</td><td>MapStudy</td><td>Sách Khóa Học</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/12/to-toan-mapstudy.html">Link Sách</a></td></tr>
+             <tr><td>Toán</td><td>MapStudy</td><td>Khóa I: Chuyên Đề Cơ Bản Môn Toán 2006</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/12/to-toan-mapstudy.html">Vào Học</a></td></tr>
+              <tr><td>Toán</td><td>MapStudy</td><td>Khóa M: Vận Dụng Và Vận Dụng Cao Môn Toán 2006</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/12/to-toan-mapstudy.html">Vào Học</a></td></tr>
+             <tr><td>Toán</td><td>MapStudy</td><td>Khóa O: Thực Chiến Luyện Đề Môn Toán 2006</td><td><a href="#" class="go" data-real="">Đợi Khai Giảng</a></td></tr>
+             <tr><td>Toán</td><td>MapStudy</td><td>Khóa E: Tổng Ôn Trọng Điểm Môn Toán 2006</td><td><a href="#" class="go" data-real="">Đợi Khai Giảng</a></td></tr>
+             
+
+              <!-- NGỮ VĂN -->
+              <tr class="teacher-row"><td colspan="4">NGỮ VĂN – CÔ SƯƠNG MAI</td></tr>
+              <tr><td>Ngữ Văn</td><td>Cô Sương Mai</td><td>Ôn tập lớp 11 - Đọc hiểu 10/10</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/co-suong-mai-live-toan-dien-k8.html">Vào học</a></td></tr>
+              <tr><td>Ngữ Văn</td><td>Cô Sương Mai</td><td>Live Toàn diện 2K8</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/co-suong-mai-live-toan-dien-k8_15.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">NGỮ VĂN – VĂN CHỊ LINH</td></tr>
+              <tr><td>Ngữ Văn</td><td>Văn Chị Linh</td><td>Livestream khóa chuyên sâu 5 tháng - Khóa 2K8</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/livestream-khoa-chuyen-sau-5-thang-khoa.html">Vào học</a></td></tr>
+              <tr><td>Ngữ Văn</td><td>Văn Chị Linh</td><td>Luyện đề chuyên sâu</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/luyen-e-chuyen-sau-chi-linh.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">NGỮ VĂN – CÔ TRẦN THÙY DƯƠNG</td></tr>
+              <tr><td>Ngữ Văn</td><td>Cô Trần Thùy Dương</td><td>Live Nghị luận xã hội</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/nghi-luan-xa-hoi-tran-thuy-duong.html">Vào học</a></td></tr>
+              <tr><td>Ngữ Văn</td><td>Cô Trần Thùy Dương</td><td>Live Luận văn học - Đọc hiểu</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/nghi-luan-van-hoc-oc-hieu-tran-thuy.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">NGỮ VĂN – THẦY PHẠM MINH NHẬT MCLASS</td></tr>
+              <tr><td>Ngữ Văn</td><td>Thầy Phạm Minh Nhật MCLASS</td><td>Live C Chuyên đề 2K8</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/van-thay-pham-minh-nhat-live-c-chuyen-e.html">Vào học</a></td></tr>
+
+              <!-- TIẾNG ANH -->
+              <tr class="teacher-row"><td colspan="4">TIẾNG ANH – CÔ VŨ MAI PHƯƠNG (NGOAINGU24H)</td></tr>
+              <tr><td>Tiếng Anh</td><td>Cô Vũ Mai Phương</td><td>PRO3M.0. Ngữ pháp tiếng Anh trọn đời</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/co-vu-mai-phuong-pro3m0-ngu-phap-tieng.html">Vào học</a></td></tr>
+              <tr><td>Tiếng Anh</td><td>Cô Vũ Mai Phương</td><td>PRO3M.1. Ngữ pháp ứng dụng</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/co-vu-mai-phuong-pro3m1-ngu-phap-ung.html">Vào học</a></td></tr>
+              <tr><td>Tiếng Anh</td><td>Cô Vũ Mai Phương</td><td>PRO3M.2 Nền tảng từ vựng đọc hiểu</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/co-vu-mai-phuong-pro3m2-tu-vung-oc-hieu.html">Vào học</a></td></tr>
+              <tr><td>Tiếng Anh</td><td>Cô Vũ Mai Phương</td><td>PRO3M.3 Ôn luyện các dạng câu hỏi trong đề thi 2026</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/co-vu-mai-phuong-pro3m3-on-luyen-cac.html">Vào học</a></td></tr>
+              <tr><td>Tiếng Anh</td><td>Cô Vũ Mai Phương</td><td>PRO3M.4. Anh văn 10-11-12 chương trình GDPT 2018 (2026)</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/co-vu-mai-phuong-pro3m4-anh-van-10-11.html">Vào học</a></td></tr>
+              <tr><td>Tiếng Anh</td><td>Cô Vũ Mai Phương</td><td>PLUS1. Luyện từ vựng - Đọc hiểu chuyên sâu</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/plus1-luyen-tu-vung-oc-hieu-chuyen-sau.html">Vào học</a></td></tr>
+              <tr><td>Tiếng Anh</td><td>Cô Vũ Mai Phương</td><td>Luyện thi ĐGNL môn Tiếng Anh</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/luyen-thi-anh-gia-nang-luc-mon-tieng.html">Vào học</a></td></tr>
+              <tr><td>Tiếng Anh</td><td>Cô Vũ Mai Phương</td><td>Ngân hàng đề thi tốt nghiệp</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/ngan-hang-e-thi-mon-tieng-anh-2026.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">TIẾNG ANH – CÔ TRANG ANH (MOON)</td></tr>
+              <tr><td>Tiếng Anh</td><td>Cô Trang Anh</td><td>Ngữ pháp Tiếng Anh 2026</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/2k8-co-trang-anh-ngu-phap-tieng-anh-2026.html">Vào học</a></td></tr>
+              <tr><td>Tiếng Anh</td><td>Cô Trang Anh</td><td>Từ vựng đọc hiểu 2026</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/2k8-co-trang-anh-tu-vung-oc-hieu-2026.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">TIẾNG ANH – CÔ PHẠM LIỄU</td></tr>
+              <tr><td>Tiếng Anh</td><td>Cô Phạm Liễu</td><td>30 ngày từ mất gốc tới 8+</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/co-pham-lieu-30-ngay-tu-mat-goc-toi-8.html">Vào học</a></td></tr>
+              <tr><td>Tiếng Anh</td><td>Cô Phạm Liễu</td><td>Live VIP - 21 ngày xây nền tiếng Anh</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/co-pham-lieu-live-vip-xay-nen.html">Vào học</a></td></tr>
+              <tr><td>Tiếng Anh</td><td>Cô Phạm Liễu</td><td>Live T - Nền tảng ngữ pháp từ vựng</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/co-pham-lieu-live-t-nen-tang-ngu-phap.html">Vào học</a></td></tr>
+              <tr><td>Tiếng Anh</td><td>Cô Phạm Liễu</td><td>Live E - Từ vựng đọc hiểu chuyên sâu</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/co-pham-lieu-live-e-tu-vung-oc-hieu.html">Vào học</a></td></tr>
+
+              <!-- VẬT LÝ -->
+              <tr class="teacher-row"><td colspan="4">VẬT LÝ – THẦY VŨ NGỌC ANH</td></tr>
+              <tr><td>Vật Lý</td><td>Thầy Vũ Ngọc Anh</td><td>Khóa I Chuyên đề Vật Lý cơ bản 2026</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/thay-vu-ngoc-anh-khoa-i-chuyen-e-co-ban.html">Vào học</a></td></tr>
+              <tr><td>Vật Lý</td><td>Thầy Vũ Ngọc Anh</td><td>Khóa M Vận dụng - Vận dụng cao 2026</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/thay-vu-ngoc-anh-khoa-m-van-dung-va-van.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">VẬT LÝ – THẦY VŨ TUẤN ANH</td></tr>
+              <tr><td>Vật Lý</td><td>Thầy Vũ Tuấn Anh</td><td>Live S - Khởi động</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/thay-vu-ngoc-anh-khoa-m-van-dung-va-van.html">Vào học</a></td></tr>
+              <tr><td>Vật Lý</td><td>Thầy Vũ Tuấn Anh</td><td>Live C - Nắm trọn từng chuyên đề</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/thay-vu-tuan-anh-live-c-chuyen-e.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">VẬT LÝ – THẦY ĐỖ NGỌC HÀ</td></tr>
+              <tr><td>Vật Lý</td><td>Thầy Đỗ Ngọc Hà</td><td>Zoom H - Chuyên đề trang bị kiến thức</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/thay-o-ngoc-ha-zoom-h-chuyen-e.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">VẬT LÝ – TDM TDPXT2026</td></tr>
+              <tr><td>Vật Lý</td><td>-</td><td>TDPXX2026</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/11/vat-ly-tdm-tdpxt2026.html">Vào học</a></td></tr>
+              <tr><td>Vật Lý</td><td>-</td><td>TDPYY2026</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/11/vat-ly-tdm-tdpxt2026.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">VẬT LÝ – IPCLASS 2K8 (Thầy Thắng, Thầy Tiến)</td></tr>
+              <tr><td>Vật Lý</td><td>-</td><td>IPTest - Kiểm tra định kì - Thi thử hàng tuần</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/11/vat-ly-ipclass-2k8-ly-thay-thang-thay.html">Vào học</a></td></tr>
+              <tr><td>Vật Lý</td><td>-</td><td>Live bổ trợ - Ôn tập các chuyên đề | IPclass</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/11/vat-ly-ipclass-2k8-ly-thay-thang-thay.html">Vào học</a></td></tr>
+              <tr><td>Vật Lý</td><td>-</td><td>IP01. Chuyên đề</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/11/vat-ly-ipclass-2k8-ly-thay-thang-thay.html">Vào học</a></td></tr>
+              <tr><td>Vật Lý</td><td>-</td><td>IP02. Vận dụng cao, thực tế - 2k8</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/11/vat-ly-ipclass-2k8-ly-thay-thang-thay.html">Vào học</a></td></tr>
+
+              <!-- HÓA HỌC -->
+              <tr class="teacher-row"><td colspan="4">HÓA – THẦY NGUYỄN ANH PHONG NAP</td></tr>
+              <tr><td>Hóa</td><td>Thầy Nguyễn Anh Phong NAP</td><td>Live I Làm Chủ Kiến Thức</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/thay-nguyen-anh-phong-live-i-lam-chu.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">HÓA – THẦY PHẠM VĂN TRỌNG</td></tr>
+              <tr><td>Hóa</td><td>Thầy Phạm Văn Trọng</td><td>Hóa Hữu Cơ 11</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/thay-pham-van-trong-hoa-huu-co-11-2k8.html">Vào học</a></td></tr>
+              <tr><td>Hóa</td><td>Thầy Phạm Văn Trọng</td><td>Khóa T - Nền tảng</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/thay-pham-van-trong-khoa-t-nen-tang.html">Vào học</a></td></tr>
+              <tr><td>Hóa</td><td>Thầy Phạm Văn Trọng</td><td>Tổng ôn toàn diện lý thuyết</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/thay-pham-van-trong-tong-on-toan-dien.html">Vào học</a></td></tr>
+              <tr><td>Hóa</td><td>Thầy Phạm Văn Trọng</td><td>Khóa E-N Luyện đề & Tổng ôn trọng điểm</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/11/khoa-e-n-luyen-e-va-tong-on-trong-iem.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">HÓA – THẦY PHẠM THẮNG TYHH</td></tr>
+              <tr><td>Hóa</td><td>Thầy Phạm Thắng TYHH</td><td>Live T - Chuyên đề</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/thay-pham-thang-live-t-chuyen-e.html">Vào học</a></td></tr>
+              <tr><td>Hóa</td><td>Thầy Phạm Thắng TYHH</td><td>Vận dụng cao 9+</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/thay-pham-thang-van-dung-cao-9.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">HÓA – CÔ THÂN THỊ LIÊN</td></tr>
+              <tr><td>Hóa</td><td>Cô Thân Thị Liên</td><td>Live Chuyên đề</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/hoa-hoc-co-than-thi-lien-live-chuyen-e.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">HÓA – THẦY PHẠM VĂN THUẬN</td></tr>
+              <tr><td>Hóa</td><td>Thầy Phạm Văn Thuận</td><td>Live C Chuyên đề nền tảng</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/11/hoa-thay-pham-van-thuan.html">Vào học</a></td></tr>
+
+              <!-- SINH HỌC -->
+              <tr class="teacher-row"><td colspan="4">SINH – THẦY PHAN KHẮC NGHỆ</td></tr>
+              <tr><td>Sinh</td><td>Thầy Phan Khắc Nghệ</td><td>Tổng ôn Sinh học 2026 - Nền tảng</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/tong-on-sinh-hoc-2026-nen-tang-thay.html">Vào học</a></td></tr>
+              <tr><td>Sinh</td><td>Thầy Phan Khắc Nghệ</td><td>THPT Live Tổng Ôn Sinh 2026</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/moon-thpt-live-tong-on-sinh-hoc-2026.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">SINH – THẦY TRƯƠNG CÔNG KIÊN QUANDA</td></tr>
+              <tr><td>Sinh</td><td>Thầy Trương Công Kiên Quanda</td><td>Live Chuyên đề Sinh 2026</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/sinh-hoc-thay-truong-cong-kien-live.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">SINH – CÔ TRÀ MY</td></tr>
+              <tr><td>Sinh</td><td>Cô Trà My</td><td>VIP 2K8 - Step 1-2 - Chinh phục chuyên đề</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/11/sinh-co-tra-my.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">SINH – THẦY TUẤN</td></tr>
+              <tr><td>Sinh</td><td>Thầy Tuấn</td><td>Lớp Live Sinh 2K8 Chuyên đề TN THPT MAS B</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/11/sinh-thay-tuan.html">Vào học</a></td></tr>
+
+              <!-- LỊCH SỬ -->
+              <tr class="teacher-row"><td colspan="4">LỊCH SỬ – CÔ NGUYỄN HƯƠNG SEN</td></tr>
+              <tr><td>Lịch Sử</td><td>Cô Nguyễn Hương Sen</td><td>Live C - Kiến thức chuyên sâu</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/co-nguyen-huong-sen-live-c-kien-thuc.html">Vào học</a></td></tr>
+              <tr><td>Lịch Sử</td><td>Cô Nguyễn Hương Sen</td><td>Live S Khởi động</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/co-nguyen-huong-sen-live-c-kien-thuc.html">Vào học</a></td></tr>
+              <tr><td>Lịch Sử</td><td>Cô Nguyễn Hương Sen</td><td>Live T Thực chiến luyện đề</td><td><a href="#" class="go" data-real="">Chưa Có</a></td></tr>
+              <tr><td>Lịch Sử</td><td>Cô Nguyễn Hương Sen</td><td>Live G - Tổng ôn toàn diện môn Sử</td><td><a href="#" class="go" data-real="">Chưa Có</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">LỊCH SỬ – CÔ LAN HƯƠNG</td></tr>
+              <tr><td>Lịch Sử</td><td>Cô Lan Hương</td><td>Tổng ôn chuyên sâu</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/at-school-x-lich-su-co-lan-huong-tong.html">Vào học</a></td></tr>
+
+              <!-- ĐỊA LÝ -->
+              <tr class="teacher-row"><td colspan="4">ĐỊA LÝ – ĐÀM THANH TÙNG</td></tr>
+              <tr><td>Địa Lý</td><td>Đàm Thanh Tùng</td><td>A1 - Tổng ôn chuyên sâu</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/ia-li-thay-tung-a1-tong-on-chuyen-sau.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">ĐỊA LÝ – CÔ MAI ANH</td></tr>
+              <tr><td>Địa Lý</td><td>Cô Mai Anh</td><td>Khóa chuyên sâu toàn diện 2026 - L1</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/ia-co-mai-anh-l1.html">Vào học</a></td></tr>
+
+              <!-- ĐGNL / ĐGTD / TSA / HSA -->
+              <tr class="teacher-row"><td colspan="4">ĐGNL HN – HSA VNES 2K8</td></tr>
+              <tr><td>ĐGNL</td><td>HSA VNES 2K8</td><td>HSA VNES 2K8 Luyện thi ĐGNL HN 2026</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/hsa-vnes-2k8-luyen-thi-gnl-hn-2026.html">Vào học</a></td></tr>
+              <tr><td>ĐGNL</td><td>HSA VNES 2K8</td><td>Khóa 2K8 luyện đề & thi thử ĐGNL ĐHQGHN</td><td><a href="#" class="go" data-real="">Chưa Có</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">HSA MAPSTUDY DGNL 2026</td></tr>
+              <tr><td>ĐGNL</td><td>HSA MAPSTUDY</td><td>Giai Đoạn 1: Nền Tảng</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/khoa-luyen-thi-anh-gia-nang-luc.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">ĐGNL HN – HSA EDU</td></tr>
+              <tr><td>ĐGNL</td><td>HSA EDU</td><td>ĐGNL ĐHQGHN XPS 2K8</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/11/hsa-edu.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">ĐGNL HÀ NỘI TUYỂN SINH 247</td></tr>
+              <tr><td>ĐGNL</td><td>TUYỂN SINH 247</td><td>5V DGNL Hà Nội</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/v5-gnl-hn-tuyen-sinh-247.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">ĐGTD HÀ NỘI TUYỂN SINH 247</td></tr>
+              <tr><td>ĐGTD</td><td>TUYỂN SINH 247</td><td>5V DGTD Hà Nội</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/v5-gtd-247.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">ĐGTD BMC</td></tr>
+              <tr><td>ĐGTD</td><td>BMC</td><td>DGTD BMC</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/11/2k8-gtd-bmc.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">TSA ILP 2K8 LUYỆN THI ĐÁNH GIÁ TƯ DUY ĐHBK HÀ NỘI 2026</td></tr>
+              <tr><td>ĐGNL</td><td>PHẦN I</td><td>TƯ DUY TOÁN HỌC</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/12/tsa-ilp-2k8-luyen-thi-anh-gia-tu-duy.html">Vào học</a></td></tr>
+              <tr><td>ĐGNL</td><td>PHẦN II</td><td>TƯ DUY ĐỌC HIỂU</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/12/tsa-ilp-2k8-luyen-thi-anh-gia-tu-duy.html">Vào học</a></td></tr>
+              <tr><td>ĐGNL</td><td>PHẦN III</td><td>KHOA HỌC VÀ GIẢI QUYẾT VẤN ĐỀ (LÝ - HÓA - SINH)</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/12/tsa-ilp-2k8-luyen-thi-anh-gia-tu-duy.html">Vào học</a></td></tr>
+              <tr><td>ĐGNL</td><td>PHẦN IV</td><td>PHÒNG LUYỆN ĐỀ THỰC CHIẾN - GOD OF WAR 80+ 90+</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/12/tsa-ilp-2k8-luyen-thi-anh-gia-tu-duy.html">Vào học</a></td></tr>
+              
+              <tr class="teacher-row"><td colspan="4">ĐGNL HCM – Thầy Bùi Văn Công</td></tr>
+              <tr><td>ĐGNL</td><td>Thầy Bùi Văn Công</td><td>Khóa Max G - Tổng ôn toàn diện</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/khoa-max-g-tong-on-toan-dien.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">MAPSTUDY LUYỆN THI ĐGNL TPHCM 2026</td></tr>
+              <tr><td>ĐGNL</td><td>MAPSTUDY</td><td>GIAI ĐOẠN 1 NỀN TẢNG</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/v-act-mapstudy-2k8-luyen-thi-anh-gia.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">ĐGNL HCM – Trung tâm Empire Team</td></tr>
+              <tr><td>ĐGNL</td><td>Empire Team</td><td>Khóa luyện thi V-ACT - Khóa xuất phát sớm 2026</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/khoa-gnl-empire-team.html">Vào học</a></td></tr>
+              <tr><td>ĐGNL</td><td>Empire Team</td><td>Khóa học bổ trợ kiến thức nền THPT - VACT 2026</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/khoa-gnl-empire-team.html">Vào học</a></td></tr>
+              <tr><td>ĐGNL</td><td>Empire Team</td><td>TỔ HỢP 6 MÔN KHOA HỌC THI THPT</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/khoa-gnl-empire-team.html">Vào học</a></td></tr>
+              <tr><td>ĐGNL</td><td>Empire Team</td><td>KHÓA CẤP TỐC</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/khoa-gnl-empire-team.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">ĐGNL HCM – ĐGNL Tuyển Sinh 247</td></tr>
+              <tr><td>ĐGNL</td><td>ĐGNL Tuyển Sinh 247</td><td>5V ĐGNL HCM 2026</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/10/v5-tuyen-sinh-247-gnl-hcm.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">ĐGNL SP HN & HCM – PEDA EDU</td></tr>
+              <tr><td>ĐGNL</td><td>SPT 2K8 HN PEDA EDU</td><td>Luyện thi ĐGNL Sư Phạm Hà Nội 2026 - XPS 2K8 SPT</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/11/spt-2k8-hn-peda-edu-luyen-thi-gnl-su.html">Vào học</a></td></tr>
+
+              <tr class="teacher-row"><td colspan="4">H-SCA 2K8 HCM PEDA EDU</td></tr>
+              <tr><td>ĐGNL</td><td>H-SCA 2K8 HN PEDA EDU</td><td>H-SCA 2K8 HCM PEDA EDU LUYỆN THI ĐGNL SƯ PHẠM TP.HCM 2026</td><td><a href="#" class="go" data-real="https://kienthuc12free.blogspot.com/2025/11/spt-2k8-hn-peda-edu-luyen-thi-gnl-su.html">Vào học</a></td></tr>
+
+
+          </tbody>
+        </table>
+      </div>
+
+      <div style="text-align:center; margin:30px 0; padding:20px; background:#c41e3a; border-radius:16px; color:#fff;">
+        <h3><a href="https://www.facebook.com/share/1BMnAjQUBY/" target="_blank" style="color:#ffd700;">Inbox Fanpage để được mở khóa các tài liệu bị khóa!</a></h3>
+      </div>
+    </main>
+
+    <footer>
+      <p style="color:#ffffff;">© 2025 HanhTrinhHocTap24h • Chúc các em 2K8 thi thật tốt!</p>
+      <p  style="color:#ffffff;">Merry Christmas & Happy New Year 2026!</p>
+    </footer>
+  </div>
+
+  <div class="social-fixed">
+    <a href="https://www.facebook.com/share/1BMnAjQUBY/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" width="30"></a>
+    <a href="https://zalo.me/g/rougor465" target="_blank"><img src="https://tse1.mm.bing.net/th/id/OIP.HOtQOonZSJ8iDgUmFTgKUwHaHB?rs=1&pid=ImgDetMain&o=7&rm=3" width="30"></a>
+  </div>
+
+
+<script>
+const SHOPEE_LINK = "https://s.shopee.vn/6AdemaGKEQ";
+const ADMIN_PASSWORD = "1810"; // mật khẩu mặc định
+
+/* ========== ADD RIPPLE CSS & NOTIFICATION STYLES ========== */
+const style = document.createElement('style');
+style.textContent = `
+  .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.6);
+    transform: scale(0);
+    animation: ripple-animation 0.6s ease-out;
+    pointer-events: none;
+  }
+  
+  @keyframes ripple-animation {
+    to {
+      transform: scale(4);
+      opacity: 0;
+    }
+  }
+  
+  .notification {
+    animation: slideIn 0.3s ease;
+    max-width: 90%;
+    word-wrap: break-word;
+  }
+  
+  @media (max-width: 768px) {
+    .notification {
+      top: 10px;
+      right: 10px;
+      left: 10px;
+      padding: 12px 20px;
+      font-size: 14px;
+    }
+  }
+`;
+document.head.appendChild(style);
+
+function showNotification(message, type = 'success') {
+  const notification = document.createElement('div');
+  notification.className = `notification notification-${type}`;
+  notification.textContent = message;
+  notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: ${type === 'success' ? '#2ecc71' : '#e74c3c'};
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    z-index: 100000;
+    animation: slideIn 0.3s ease;
+    font-weight: 600;
+    max-width: 400px;
+  `;
+  
+  document.body.appendChild(notification);
+  
+  setTimeout(() => {
+    notification.style.animation = 'fadeIn 0.3s ease reverse';
+    setTimeout(() => notification.remove(), 300);
+  }, 3000);
+}
+
+/* ===================== QUẢN LÝ STREAK ===================== */
+function getStreak() {
+  return parseInt(localStorage.getItem("streak") || "70");
+}
+
+function setStreak(value) {
+  localStorage.setItem("streak", value);
+  document.getElementById("streakDisplay").textContent = value;
+  document.getElementById("streakValue").textContent = value;
+}
+
+function updateStreakDisplay() {
+  setStreak(getStreak());
+}
+
+function getCurrentDateKey() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function hasAttendedToday() {
+  const lastAttendanceDate = localStorage.getItem("lastAttendanceDate");
+  const todayKey = getCurrentDateKey();
+  return lastAttendanceDate === todayKey;
+}
+
+function shouldReset() {
+  const now = new Date();
+  const hour = now.getHours();
+  const minute = now.getMinutes();
+  
+  // Reset sau 11h59 tối (23:59)
+  if (hour >= 23 && minute >= 59) {
+    const lastResetDate = localStorage.getItem("lastResetDate");
+    const todayKey = getCurrentDateKey();
+    
+    if (lastResetDate !== todayKey) {
+      localStorage.setItem("lastResetDate", todayKey);
+      return true;
+    }
+  }
+  
+  // Kiểm tra nếu đã qua ngày mới (sau 00:00)
+  const lastCheckDay = localStorage.getItem("lastCheckDay");
+  const todayKey = getCurrentDateKey();
+  
+  if (lastCheckDay !== todayKey) {
+    localStorage.setItem("lastCheckDay", todayKey);
+    return true;
+  }
+  
+  return false;
+}
+
+function dailyPenalty() {
+  if (shouldReset()) {
+    const streak = Math.max(0, getStreak() - 10);
+    setStreak(streak);
+    // Reset trạng thái điểm danh khi reset streak
+    localStorage.removeItem("lastAttendanceDate");
+  }
+}
+
+function openAttendance() {
+  document.getElementById("attendanceModal").style.display = "flex";
+  document.getElementById("streakDisplay").textContent = getStreak();
+  
+  const button = document.getElementById("attendanceButton");
+  const hasAttended = hasAttendedToday();
+  
+  if (hasAttended) {
+    button.disabled = true;
+    button.textContent = "Đã điểm danh hôm nay";
+    button.style.background = "#95a5a6";
+  } else {
+    button.disabled = false;
+    button.textContent = "Nhận Streak hôm nay";
+    button.style.background = "";
+  }
+}
+
+function closeAttendance() {
+  document.getElementById("attendanceModal").style.display = "none";
+}
+
+function diemDanh() {
+  // Kiểm tra xem đã điểm danh hôm nay chưa
+  if (hasAttendedToday()) {
+    showNotification("Bạn đã điểm danh hôm nay rồi! Vui lòng quay lại sau 11h59 tối để điểm danh ngày mai.", 'error');
+    return;
+  }
+  
+  // Lưu ngày điểm danh
+  const todayKey = getCurrentDateKey();
+  localStorage.setItem("lastAttendanceDate", todayKey);
+  
+  // Tăng streak
+  const streak = Math.min(70, getStreak() + 10);
+  setStreak(streak);
+  
+  // Vô hiệu hóa nút và cập nhật text
+  const button = document.getElementById("attendanceButton");
+  button.disabled = true;
+  button.textContent = "Đã điểm danh hôm nay";
+  button.style.background = "#95a5a6";
+  
+  // Mở link Shopee
+  window.open(SHOPEE_LINK, "_blank");
+  const clicks = Number(localStorage.getItem("shopee_click") || 0);
+  localStorage.setItem("shopee_click", clicks + 1);
+  
+  // Hiển thị thông báo thành công
+  showNotification("🎉 Điểm danh thành công! Bạn đã nhận +10 streak. Hãy quay lại sau 11h59 tối để điểm danh ngày mai!", 'success');
+  
+  setTimeout(() => {
+    closeAttendance();
+    checkAccess();
+  }, 1500);
+}
+
+function checkAccess() {
+  const streak = getStreak();
+  document.querySelectorAll(".go").forEach(btn => {
+    if (streak < 50) {
+      btn.style.pointerEvents = "none";
+      btn.style.opacity = "0.4";
+      btn.style.cursor = "not-allowed";
+    } else {
+      btn.style.pointerEvents = "auto";
+      btn.style.opacity = "1";
+      btn.style.cursor = "pointer";
+    }
+  });
+}
+
+// Scroll xuống phần khóa học
+function scrollToCourses() {
+  const coursesSection = document.getElementById('khoahoc');
+  if (coursesSection) {
+    // Kiểm tra streak trước khi scroll
+    if (getStreak() < 50) {
+      showNotification("Streak phải đạt từ 50 trở lên để xem tài liệu. Hãy điểm danh mỗi ngày để tăng streak!", 'error');
+      // Vẫn scroll xuống nhưng cảnh báo
+    }
+    
+    coursesSection.scrollIntoView({ 
+      behavior: 'smooth', 
+      block: 'start' 
+    });
+  }
+}
+
+// Mở link Shopee khi click Tài Liệu
+function openShopee() {
+  window.open(SHOPEE_LINK, "_blank");
+  const clicks = Number(localStorage.getItem("shopee_click") || 0);
+  localStorage.setItem("shopee_click", clicks + 1);
+}
+
+// Hiển thị popup thông báo khi vào web lần đầu
+function showWelcomePopup() {
+  const hasSeenWelcome = localStorage.getItem("hasSeenWelcome");
+  if (!hasSeenWelcome) {
+    setTimeout(() => {
+      document.getElementById("welcomePopup").style.display = "flex";
+    }, 1000); // Hiển thị sau 1 giây
+  }
+}
+
+// Đóng popup thông báo
+function closeWelcomePopup() {
+  document.getElementById("welcomePopup").style.display = "none";
+  localStorage.setItem("hasSeenWelcome", "true");
+}
+
+/* ===================== LINK MỞ SHOPEE & KHÓA HỌC ===================== */
+function attachCourseHandlers() {
+  document.querySelectorAll("a.go").forEach(link => {
+    const real = link.getAttribute("data-real") || "";
+    link.addEventListener("click", e => {
+      e.preventDefault();
+
+      if (getStreak() < 50) {
+        showNotification("Streak phải đạt từ 50 trở lên để xem tài liệu. Hãy điểm danh mỗi ngày để tăng streak!", 'error');
+        return;
+      }
+
+      if (real && real.trim() !== "" && real !== "#") {
+        window.open(real, "_blank");
+      }
+    });
+  });
+}
+
+/* ===================== TUYẾT TRANG CHÍNH ===================== */
+function createSnowHome() {
+  const snow = document.getElementById("snow");
+  if (!snow) return;
+
+  for (let i = 0; i < 40; i++) {
+    const s = document.createElement("div");
+    s.className = "snowflake";
+    s.innerHTML = "❄";
+    s.style.left = Math.random() * 100 + "%";
+    s.style.fontSize = (Math.random() * 15 + 10) + "px";
+    s.style.animationDuration = (Math.random() * 5 + 5) + "s";
+    s.style.opacity = Math.random();
+    snow.appendChild(s);
+  }
+}
+createSnowHome();
+
+/* ===================== ĐẾM TRUY CẬP ===================== */
+const visits = Number(localStorage.getItem("visits") || 0);
+localStorage.setItem("visits", visits + 1);
+
+/* ===================== ADMIN ===================== */
+function openAdmin() {
+  document.getElementById("adminModal").style.display = "flex";
+}
+
+function login() {
+  const pass = document.getElementById("adminPass").value;
+  if (pass === ADMIN_PASSWORD) {
+    document.getElementById("adminModal").style.display = "none";
+    document.getElementById("adminPanel").style.display = "flex";
+    loadAdminData();
+    snowAdminEffect();
+  } else {
+    alert("Sai mật khẩu!");
+  }
+}
+
+function loadAdminData() {
+  document.getElementById("showVisits").innerText =
+    localStorage.getItem("visits") || 0;
+  document.getElementById("showShopee").innerText =
+    localStorage.getItem("shopee_click") || 0;
+}
+
+function snowAdminEffect() {
+  const snow = document.getElementById("snowAdmin");
+  snow.innerHTML = "";
+  for (let i = 0; i < 30; i++) {
+    const s = document.createElement("div");
+    s.className = "snowflake";
+    s.innerHTML = "❄";
+    s.style.left = Math.random() * 100 + "%";
+    s.style.fontSize = (Math.random() * 12 + 10) + "px";
+    s.style.animationDuration = (Math.random() * 4 + 5) + "s";
+    s.style.opacity = Math.random();
+    snow.appendChild(s);
+  }
+}
+
+function logout() {
+  document.getElementById("adminPanel").style.display = "none";
+}
+
+window.onclick = function (e) {
+  const modal = document.getElementById("adminModal");
+  if (e.target === modal) modal.style.display = "none";
+  
+  const welcomePopup = document.getElementById("welcomePopup");
+  if (e.target === welcomePopup) closeWelcomePopup();
+};
+
+/* ===================== ANIMATION HELPERS ===================== */
+function animateOnScroll() {
+  const elements = document.querySelectorAll('.card, .table-wrap, .courses-header');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animation = 'fadeIn 0.6s ease forwards';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  
+  elements.forEach(el => observer.observe(el));
+}
+
+function addRippleEffect() {
+  document.querySelectorAll('.attendance-btn, nav a, .go').forEach(button => {
+    button.addEventListener('click', function(e) {
+      const ripple = document.createElement('span');
+      const rect = this.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      const x = e.clientX - rect.left - size / 2;
+      const y = e.clientY - rect.top - size / 2;
+      
+      ripple.style.width = ripple.style.height = size + 'px';
+      ripple.style.left = x + 'px';
+      ripple.style.top = y + 'px';
+      ripple.classList.add('ripple');
+      
+      this.appendChild(ripple);
+      
+      setTimeout(() => ripple.remove(), 600);
+    });
+  });
+}
+
+function updateTimeDisplay() {
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const seconds = now.getSeconds();
+  
+  // Kiểm tra nếu đã qua 11h59 tối để reset
+  if (hours >= 23 && minutes >= 59) {
+    shouldReset();
+  }
+  
+  // Cập nhật lại sau 1 giây
+  setTimeout(updateTimeDisplay, 1000);
+}
+
+
+/* ===================== INIT ===================== */
+document.addEventListener("DOMContentLoaded", () => {
+  dailyPenalty();
+  updateStreakDisplay();
+  checkAccess();
+  attachCourseHandlers();
+  animateOnScroll();
+  addRippleEffect();
+  updateTimeDisplay();
+  showWelcomePopup(); // Hiển thị popup thông báo khi vào web lần đầu
+  
+  // Thêm hiệu ứng fade-in cho body
+  document.body.style.opacity = '0';
+  setTimeout(() => {
+    document.body.style.transition = 'opacity 0.5s ease';
+    document.body.style.opacity = '1';
+  }, 100);
+});
+</script>
+
+
+
+</body>
 </html>
+
